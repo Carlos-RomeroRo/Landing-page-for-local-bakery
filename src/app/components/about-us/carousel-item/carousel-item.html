@@ -1,47 +1,46 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start relative">
-  <div class="space-y-32 py-32 lg:py-40">
-    @for (item of items; track $index) {
-      <div 
-        class="carousel-section min-h-[50vh] flex flex-col justify-center px-4 transition-all duration-700"
-        [attr.data-index]="$index"
-        [class.opacity-100]="activeIndex() === $index"
-        [class.opacity-30]="activeIndex() !== $index"
-        [class.scale-100]="activeIndex() === $index"
-        [class.scale-95]="activeIndex() !== $index"
-        (click)="setActive($index)">
-        
-        <span class="text-7xl font-bold text-amber-200 mb-4 tracking-tighter">{{ item.number }}</span>
-        <h3 class="text-4xl lg:text-5xl font-bold text-amber-900 mb-6 leading-tight">{{ item.title }}</h3>
-        <p class="text-xl text-stone-600 leading-relaxed max-w-lg">{{ item.description }}</p>
-        
-        <!-- Indicador de progreso -->
-        <div class="mt-8 flex gap-2">
-          @for (dot of items; track $index) {
-            <div 
-              class="h-1.5 rounded-full transition-all duration-500"
-              [class.w-8]="activeIndex() === $index"
-              [class.w-1.5]="activeIndex() !== $index"
-              [class.bg-amber-500]="activeIndex() === $index"
-              [class.bg-amber-200]="activeIndex() !== $index">
-            </div>
-          }
+  <div class="space-y-32 py-16 lg:py-40">
+    <div *ngFor="let item of items; let i = index"
+         class="carousel-section min-h-[50vh] flex flex-col justify-center px-4 transition-all duration-700"
+         [attr.data-index]="i"
+         [class.opacity-100]="activeIndex() === i"
+         [class.opacity-30]="activeIndex() !== i"
+         [class.scale-100]="activeIndex() === i"
+         [class.scale-95]="activeIndex() !== i"
+         (click)="setActive(i)">
+      <span class="text-7xl font-bold text-amber-200 mb-4 tracking-tighter">{{ item.number }}</span>
+      <h3 class="text-4xl lg:text-5xl font-bold text-amber-900 mb-6 leading-tight">{{ item.title }}</h3>
+      <p class="text-xl text-stone-600 leading-relaxed max-w-lg">{{ item.description }}</p>
+
+      <div class="mt-8 lg:hidden overflow-hidden rounded-3xl shadow-2xl">
+        <img [src]="item.image" [alt]="item.title" class="w-full h-64 object-cover" />
+      </div>
+
+      <!-- Indicador de progreso -->
+      <div class="mt-8 flex gap-2">
+        <div *ngFor="let dot of items; let j = index"
+             class="h-1.5 rounded-full transition-all duration-500"
+             [class.w-8]="activeIndex() === j"
+             [class.w-1.5]="activeIndex() !== j"
+             [class.bg-amber-500]="activeIndex() === j"
+             [class.bg-amber-200]="activeIndex() !== j">
         </div>
       </div>
-    }
+    </div>
   </div>
 
-  <div class="hidden lg:block sticky top-32 h-[70vh] mt-20">
+  <div class="hidden lg:block relative h-[45vh] lg:sticky lg:top-32 lg:h-[70vh] mt-10 lg:mt-20">
     <div class="relative h-full">
-      @for (item of items; track $index) {
-        <div
-          class="absolute inset-0 transition-all duration-700 rounded-3xl overflow-hidden shadow-2xl"
-          [class.opacity-100]="activeIndex() === $index"
-          [class.opacity-0]="activeIndex() !== $index"
-          [class.z-10]="activeIndex() === $index"
-          [class.z-0]="activeIndex() !== $index">
-          <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover" />
-        </div>
-      }
+      <div *ngFor="let item of items; let i = index"
+           class="absolute inset-0 transition-all duration-700 rounded-3xl overflow-hidden shadow-2xl"
+           [class.opacity-100]="activeIndex() === i"
+           [class.opacity-0]="activeIndex() !== i"
+           [class.translate-y-0]="activeIndex() === i"
+           [class.translate-y-6]="activeIndex() !== i"
+           [class.z-10]="activeIndex() === i"
+           [class.z-0]="activeIndex() !== i">
+        <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover" />
+      </div>
 
       <div class="absolute inset-x-0 bottom-6 flex justify-center z-20 pointer-events-auto">
         <button type="button" (click)="openModal('products')" class="bg-yellow-500 text-amber-900 font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-yellow-400 transition">

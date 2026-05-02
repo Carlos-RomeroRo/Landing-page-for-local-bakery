@@ -1,4 +1,4 @@
-import { Component, Input, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, signal, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService, ModalType } from '../../../services/modal.service';
 
@@ -16,7 +16,7 @@ export interface CarouselItem {
   templateUrl: './carousel-item.html',
   styleUrl: './carousel-item.css'
 })
-export class Carousel implements OnInit, OnDestroy {
+export class Carousel implements OnInit, AfterViewInit, OnDestroy {
   @Input() items: CarouselItem[] = [];
   activeIndex = signal(0);
   private observers: IntersectionObserver[] = [];
@@ -24,6 +24,11 @@ export class Carousel implements OnInit, OnDestroy {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
+    // inicializa el índice activo en 0 para que siempre haya un item seleccionado
+    this.activeIndex.set(0);
+  }
+
+  ngAfterViewInit() {
     if (typeof window !== 'undefined' && typeof IntersectionObserver !== 'undefined') {
       setTimeout(() => this.setupIntersectionObserver(), 100);
     }
@@ -35,14 +40,14 @@ export class Carousel implements OnInit, OnDestroy {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
           const index = parseInt(entry.target.getAttribute('data-index') || '0', 10);
           this.activeIndex.set(index);
         }
       });
     }, {
-      threshold: 0.5,
-      rootMargin: '-20% 0px -20% 0px'
+      threshold: [0.6],
+      rootMargin: '0px 0px -20% 0px'
     });
 
     sections.forEach(section => observer.observe(section));

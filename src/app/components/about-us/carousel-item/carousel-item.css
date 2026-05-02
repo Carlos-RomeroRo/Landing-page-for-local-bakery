@@ -1,0 +1,18 @@
+.carousel-section {
+  cursor: pointer;
+  transform-origin: left center;
+}
+
+.carousel-image-card {
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.carousel-image-card.inactive {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.carousel-image-card.active {
+  opacity: 1;
+  transform: translateY(0);
+}
