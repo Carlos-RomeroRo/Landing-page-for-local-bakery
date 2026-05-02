@@ -1,0 +1,127 @@
+<nav class="bg-amber-900/95 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-amber-800/50 transition-transform duration-300">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-8 py-4">
+    <!-- Logo -->
+    <a href="https://www.instagram.com/zapatoca_panaderia/?hl=es" class="flex items-center space-x-4 rtl:space-x-reverse group">
+      <img src="https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg" 
+           class="h-16 w-16 rounded-full object-cover border-2 border-amber-50 shadow-lg group-hover:scale-105 transition duration-300" 
+           alt="Zapatoca_Logo" />
+      <span class="self-center text-2xl text-amber-50 font-bold whitespace-nowrap tracking-wide">Panadería Zapatoca</span>
+    </a>
+    
+    <!-- Menú desktop + CTA -->
+    <div class="flex items-center">
+      <div class="hidden w-full lg:block lg:w-auto mr-4">
+        <ul class="font-medium flex flex-col p-0 lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0">
+          <li>
+            <a href="#home" 
+               [class.text-yellow-300]="isActive('home')"
+               [class.bg-amber-800]="isActive('home')"
+               [class.rounded-lg]="isActive('home')"
+               [class.px-3]="isActive('home')"
+               [class.py-1]="isActive('home')"
+               class="block py-2 px-3 text-amber-100 hover:text-yellow-300 transition duration-300 lg:p-0" 
+               aria-current="page">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#nosotros" 
+               (click)="closeMenu()"
+               [class.text-yellow-300]="isActive('nosotros')"
+               [class.bg-amber-800]="isActive('nosotros')"
+               [class.rounded-lg]="isActive('nosotros')"
+               [class.px-3]="isActive('nosotros')"
+               [class.py-1]="isActive('nosotros')"
+               class="block py-2 px-3 text-amber-100 hover:text-yellow-300 transition duration-300 lg:p-0">
+              Nosotros
+            </a>
+          </li>
+          <li>
+            <a href="#productos" 
+               [class.text-yellow-300]="isActive('productos')"
+               [class.bg-amber-800]="isActive('productos')"
+               [class.rounded-lg]="isActive('productos')"
+               [class.px-3]="isActive('productos')"
+               [class.py-1]="isActive('productos')"
+               class="block py-2 px-3 text-amber-100 hover:text-yellow-300 transition duration-300 lg:p-0">
+              Productos
+            </a>
+          </li>
+          <li>
+            <a href="#contacto" 
+               [class.text-yellow-300]="isActive('contacto')"
+               [class.bg-amber-800]="isActive('contacto')"
+               [class.rounded-lg]="isActive('contacto')"
+               [class.px-3]="isActive('contacto')"
+               [class.py-1]="isActive('contacto')"
+               class="block py-2 px-3 text-amber-100 hover:text-yellow-300 transition duration-300 lg:p-0">
+              Contacto
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Botón CTA -->
+      <button type="button" (click)="openModal('order')" class="hidden lg:block bg-yellow-500 text-amber-900 font-semibold px-5 py-2 rounded-lg hover:bg-yellow-400 hover:scale-105 transition duration-300 shadow-md">
+        Pedir Ahora
+      </button>
+      
+      <!-- Botón hamburguesa -->
+      <button 
+        (click)="toggleMenu()"
+        type="button" 
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-amber-50 rounded-lg lg:hidden hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-600" 
+        [attr.aria-expanded]="isMenuOpen()">
+        <span class="sr-only">Abrir menú</span>
+        <svg *ngIf="!isMenuOpen()" class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+        <svg *ngIf="isMenuOpen()" class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Menú mobile - controlado por el signal -->
+  <div 
+    [class.hidden]="!isMenuOpen()"
+    class="lg:hidden bg-amber-900/98 backdrop-blur-md px-8 pb-4 pt-2 border-t border-amber-800/50">
+    <ul class="font-medium">
+      <li>
+        <a href="#home" 
+           [class.text-yellow-300]="isActive('home')"
+           [class.bg-amber-800]="isActive('home')"
+           [class.rounded-lg]="isActive('home')"
+           class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Home</a>
+      </li>
+      <li>
+        <a href="#nosotros" 
+           (click)="closeMenu()"
+           [class.text-yellow-300]="isActive('nosotros')"
+           [class.bg-amber-800]="isActive('nosotros')"
+           [class.rounded-lg]="isActive('nosotros')"
+           class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Nosotros</a>
+      </li>
+      <li>
+        <a href="#productos" 
+           [class.text-yellow-300]="isActive('productos')"
+           [class.bg-amber-800]="isActive('productos')"
+           [class.rounded-lg]="isActive('productos')"
+           class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Productos</a>
+      </li>
+      <li>
+        <a href="#contacto" 
+           [class.text-yellow-300]="isActive('contacto')"
+           [class.bg-amber-800]="isActive('contacto')"
+           [class.rounded-lg]="isActive('contacto')"
+           class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Contacto</a>
+      </li>
+      <li class="pt-2">
+        <button type="button" (click)="openModal('order')" class="w-full bg-yellow-500 text-amber-900 font-semibold px-5 py-3 rounded-lg hover:bg-yellow-400 transition duration-300">
+          Pedir Ahora
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>

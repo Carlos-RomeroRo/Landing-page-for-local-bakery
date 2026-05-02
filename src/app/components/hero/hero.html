@@ -1,0 +1,41 @@
+<section class="min-h-screen bg-gradient-to-r from-amber-50 to-orange-100 flex items-center pt-20">
+  <div class="max-w-screen-xl mx-auto px-8 py-24 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Columna izquierda: Mensaje -->
+      <div class="order-2 lg:order-1 text-center lg:text-left">
+        <h1 class="text-5xl lg:text-6xl font-bold text-amber-900 leading-tight">
+          El mejor pan<br/>
+          <span class="text-yellow-600">está en Zapatoca, todos los días</span>
+        </h1>
+        
+        <p class="mt-6 text-xl text-stone-600 max-w-lg mx-auto lg:mx-0">
+          Sabor artesanal que se siente en cada bocado. Recetas auténticas que deleitan tu paladar desde el primer momento.
+        </p>
+        
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <button type="button" (click)="openModal('products')" class="bg-yellow-500 hover:bg-yellow-400 text-amber-900 font-bold px-8 py-4 rounded-lg hover:scale-105 transition duration-300 shadow-xl">
+            Ver productos
+          </button>
+          <button type="button" (click)="openModal('contact')" class="border-2 border-amber-800 text-amber-800 hover:bg-amber-800 hover:text-white font-semibold px-8 py-4 rounded-lg transition duration-300">
+            Contáctanos
+          </button>
+        </div>
+      </div>
+      
+      <!-- Columna derecha: Imagen -->
+      <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
+        <div class="relative group">
+          <!-- Círculo decorativo detrás -->
+          <div class="absolute -inset-4 bg-yellow-200 rounded-full opacity-50 blur-2xl group-hover:opacity-70 transition duration-500"></div>
+          
+          <!-- Imagen del pan con efecto hover -->
+          <img src="https://res.cloudinary.com/dadlhhv4t/image/upload/v1777691876/Hero_Imagen_1_t3tdpa.png" 
+               alt="Pan artesanal" 
+               class="relative rounded-3xl shadow-2xl w-full max-w-md object-cover aspect-square hover:scale-105 transition duration-500 cursor-pointer" />
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>

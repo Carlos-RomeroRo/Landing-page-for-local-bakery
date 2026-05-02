@@ -1,0 +1,18 @@
+.carousel-section {
+  cursor: pointer;
+  transform-origin: left center;
+}
+
+/* Suavizar transiciones */
+.opacity-100 {
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.opacity-30 {
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* Efecto hover en secciones inactivas */
+.carousel-section:hover {
+  opacity: 0.6 !important;
+}

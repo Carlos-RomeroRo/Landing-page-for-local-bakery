@@ -1,0 +1,79 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal-panel {
+  width: min(32rem, 100%);
+  background: #fff8e7;
+  border-radius: 1.25rem;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.2);
+  padding: 2rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: transparent;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #4b2f04;
+  cursor: pointer;
+}
+
+.modal-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  color: #792500;
+}
+
+.modal-description {
+  margin-bottom: 1.75rem;
+  color: #5f4b3d;
+  line-height: 1.8;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.4rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary {
+  background: #f59e0b;
+  color: #1f2937;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  background: #d97706;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #334155;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+}

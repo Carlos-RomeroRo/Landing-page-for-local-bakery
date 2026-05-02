@@ -1,0 +1,14 @@
+<div *ngIf="modalService.state().open" class="modal-backdrop" (click)="close()">
+  <div class="modal-panel" (click)="$event.stopPropagation()">
+    <button type="button" class="modal-close" aria-label="Cerrar modal" (click)="close()">×</button>
+    <h2 class="modal-title">{{ modalService.state().title }}</h2>
+    <p class="modal-description">{{ modalService.state().description }}</p>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" (click)="close()">Cerrar</button>
+      <a *ngIf="modalService.state().type === 'order'" href="https://wa.me/1234567890" target="_blank" rel="noreferrer" class="btn-primary">Abrir WhatsApp</a>
+      <a *ngIf="modalService.state().type === 'contact'" href="mailto:contacto@zapatoca.com" class="btn-primary">Enviar correo</a>
+      <a *ngIf="modalService.state().type === 'products'" href="#productos" class="btn-primary" (click)="close()">Ver sección Productos</a>
+    </div>
+  </div>
+</div>

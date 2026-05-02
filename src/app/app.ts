@@ -1,9 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Navbar } from './components/navbar/navbar';
+import { WhatsappButton } from './components/whatsapp-button/whatsapp-button';
+import { Modal } from './components/modal/modal';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Navbar, WhatsappButton, Modal],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
