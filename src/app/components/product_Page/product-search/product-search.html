@@ -1,0 +1,230 @@
+@if (mobileSidebarOpen()) {
+  <button
+    type="button"
+    class="fixed inset-0 top-24 z-[9] bg-stone-900/40 sm:hidden"
+    aria-label="Cerrar menú"
+    (click)="closeMobileSidebar()"></button>
+}
+
+<button
+  type="button"
+  (click)="toggleMobileSidebar()"
+  class="fixed left-3 top-28 z-[11] inline-flex items-center rounded-lg border border-amber-900/20 bg-yellow-400 p-2 text-amber-950 shadow-md hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-amber-700 sm:hidden"
+  aria-controls="product-sidebar"
+  [attr.aria-expanded]="mobileSidebarOpen()">
+  <span class="sr-only">Abrir menú lateral</span>
+  <svg class="h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10" />
+  </svg>
+</button>
+
+@if (desktopSidebarCollapsed()) {
+  <button
+    type="button"
+    (click)="toggleDesktopSidebar()"
+    class="fixed left-2 top-28 z-[12] hidden h-10 w-9 items-center justify-center rounded-r-lg border border-amber-900/20 border-l-0 bg-yellow-400 text-amber-950 shadow-md hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-amber-700 sm:inline-flex"
+    aria-controls="product-sidebar"
+    aria-label="Mostrar panel lateral">
+    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+    </svg>
+  </button>
+}
+
+<div class="flex min-h-0 w-full min-w-0 flex-1 flex-col sm:flex-row sm:items-stretch">
+  <aside
+    id="product-sidebar"
+    class="z-10 flex flex-col border-r border-amber-900/15 bg-yellow-400 shadow-md transition-[width,min-width,padding] duration-300 ease-out max-sm:fixed max-sm:top-24 max-sm:bottom-0 max-sm:w-64 sm:relative sm:top-auto sm:bottom-auto sm:z-0 sm:shrink-0 sm:self-stretch"
+    [class.max-sm:-translate-x-full]="!mobileSidebarOpen()"
+    [class.max-sm:translate-x-0]="mobileSidebarOpen()"
+    [class.sm:w-0]="desktopSidebarCollapsed()"
+    [class.sm:min-w-0]="desktopSidebarCollapsed()"
+    [class.sm:overflow-hidden]="desktopSidebarCollapsed()"
+    [class.sm:border-0]="desktopSidebarCollapsed()"
+    [class.sm:px-0]="desktopSidebarCollapsed()"
+    [class.sm:py-0]="desktopSidebarCollapsed()"
+    [class.sm:w-64]="!desktopSidebarCollapsed()"
+    aria-label="Menú de productos">
+    @if (!desktopSidebarCollapsed()) {
+      <div class="flex items-center justify-end gap-1 border-b border-amber-900/10 px-2 py-2 sm:border-0 sm:px-3 sm:pt-3">
+        <button
+          type="button"
+          (click)="toggleDesktopSidebar()"
+          class="hidden rounded-md border border-amber-900/20 bg-amber-900/5 p-1.5 text-amber-950 hover:bg-amber-900/15 focus:outline-none focus:ring-2 focus:ring-amber-700 sm:inline-flex"
+          aria-label="Ocultar panel lateral"
+          aria-expanded="true">
+          <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
+    }
+    <div class="min-h-0 flex-1 overflow-y-auto px-3 pb-4 sm:pt-0">
+      <ul class="space-y-1 font-medium text-amber-950">
+        <li>
+          <a href="#" class="group flex items-center rounded-lg px-2 py-2 hover:bg-amber-900/10">
+            <svg class="h-5 w-5 shrink-0 text-amber-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6.025A7.5 7.5 0 1 0 17.975 14H10V6.025Z" />
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 3c-.169 0-.334.014-.5.025V11h7.975c.011-.166.025-.331.025-.5A7.5 7.5 0 0 0 13.5 3Z" />
+            </svg>
+            <span class="ms-3">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="group flex items-center rounded-lg px-2 py-2 hover:bg-amber-900/10">
+            <svg class="h-5 w-5 shrink-0 text-amber-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v14M9 5v14M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
+            </svg>
+            <span class="ms-3 flex-1 whitespace-nowrap">Kanban</span>
+            <span class="rounded border border-amber-800/30 bg-amber-900/10 px-1.5 py-0.5 text-xs font-medium text-amber-900">Pro</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="group flex items-center rounded-lg px-2 py-2 hover:bg-amber-900/10">
+            <svg class="h-5 w-5 shrink-0 text-amber-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 13h3.439a.991.991 0 0 1 .908.6 3.978 3.978 0 0 0 7.306 0 .99.99 0 0 1 .908-.6H20M4 13v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6M4 13l2-9h12l2 9M9 7h6m-7 3h8" />
+            </svg>
+            <span class="ms-3 flex-1 whitespace-nowrap">Inbox</span>
+            <span class="inline-flex h-5 min-w-5 items-center justify-center rounded-full border border-amber-800/40 bg-amber-900/15 px-1 text-xs font-semibold text-amber-950">2</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="group flex items-center rounded-lg px-2 py-2 hover:bg-amber-900/10">
+            <svg class="h-5 w-5 shrink-0 text-amber-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+            <span class="ms-3 flex-1 whitespace-nowrap">Users</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="group flex items-center rounded-lg px-2 py-2 hover:bg-amber-900/10">
+            <svg class="h-5 w-5 shrink-0 text-amber-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v4m3-2 .917 11.923A1 1 0 0 1 17.92 21H6.08a1 1 0 0 1-.997-1.077L6 8h12Z" />
+            </svg>
+            <span class="ms-3 flex-1 whitespace-nowrap">Products</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="group flex items-center rounded-lg px-2 py-2 hover:bg-amber-900/10">
+            <svg class="h-5 w-5 shrink-0 text-amber-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+            </svg>
+            <span class="ms-3 flex-1 whitespace-nowrap">Sign In</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <div class="flex min-h-0 min-w-0 flex-1 flex-col p-4">
+    <form class="mx-auto mb-6 w-full max-w-2xl" (submit)="onSearchSubmit($event)">
+      <label for="search-dropdown" class="sr-only mb-2.5 block text-sm font-medium text-amber-950">Buscar productos</label>
+      <div class="flex rounded-lg shadow-sm ring-1 ring-amber-900/15">
+        <div class="relative shrink-0" data-category-dropdown-root>
+          <button
+            id="dropdown-button"
+            type="button"
+            (click)="$event.stopPropagation(); toggleCategoryMenu()"
+            class="inline-flex shrink-0 items-center rounded-l-lg border border-amber-900/20 bg-amber-100 px-3 py-2.5 text-sm font-medium text-amber-950 hover:bg-amber-200 focus:z-10 focus:outline-none focus:ring-2 focus:ring-amber-600">
+            <svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
+            </svg>
+            <span class="max-w-[7rem] truncate sm:max-w-none">{{ selectedCategoryLabel() }}</span>
+            <svg class="ms-1.5 h-4 w-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
+            </svg>
+          </button>
+          @if (categoryMenuOpen()) {
+            <div
+              id="dropdown"
+              class="absolute left-0 top-full z-20 mt-1 w-48 rounded-lg border border-amber-900/15 bg-white py-1 shadow-lg"
+              role="listbox">
+              <ul class="p-1 text-sm font-medium text-amber-950" aria-labelledby="dropdown-button">
+                <li>
+                  <button type="button" class="block w-full rounded-md px-3 py-2 text-left hover:bg-amber-100" (click)="selectCategory('all')">Todas las categorías</button>
+                </li>
+                <li>
+                  <button type="button" class="block w-full rounded-md px-3 py-2 text-left hover:bg-amber-100" (click)="selectCategory('pan')">Panes</button>
+                </li>
+                <li>
+                  <button type="button" class="block w-full rounded-md px-3 py-2 text-left hover:bg-amber-100" (click)="selectCategory('pasteles')">Pasteles</button>
+                </li>
+                <li>
+                  <button type="button" class="block w-full rounded-md px-3 py-2 text-left hover:bg-amber-100" (click)="selectCategory('empanadas')">Empanadas</button>
+                </li>
+                <li>
+                  <button type="button" class="block w-full rounded-md px-3 py-2 text-left hover:bg-amber-100" (click)="selectCategory('otros')">Otros</button>
+                </li>
+              </ul>
+            </div>
+          }
+        </div>
+        <input
+          type="search"
+          id="search-dropdown"
+          name="q"
+          [value]="searchQuery()"
+          (input)="updateSearchQuery($any($event.target).value)"
+          class="min-w-0 flex-1 border-y border-amber-900/20 bg-white px-3 py-2.5 text-sm text-amber-950 placeholder:text-amber-700/60 focus:z-10 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40"
+          placeholder="Buscar productos..."
+          autocomplete="off" />
+        <button
+          type="submit"
+          class="inline-flex shrink-0 items-center rounded-r-lg border border-amber-800 bg-amber-900 px-4 py-2.5 text-sm font-medium leading-5 text-amber-50 shadow-sm hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-600">
+          <svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+          </svg>
+          Buscar
+        </button>
+      </div>
+    </form>
+
+    <div class="rounded-xl border border-dashed border-amber-300/80 bg-amber-50/50 p-4">
+      <div class="mb-4 grid grid-cols-3 gap-4">
+        <div class="flex h-24 items-center justify-center rounded-lg bg-amber-100/80">
+          <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+          </svg>
+        </div>
+        <div class="flex h-24 items-center justify-center rounded-lg bg-amber-100/80">
+          <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+          </svg>
+        </div>
+        <div class="flex h-24 items-center justify-center rounded-lg bg-amber-100/80">
+          <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+          </svg>
+        </div>
+      </div>
+      <div class="mb-4 flex h-48 items-center justify-center rounded-lg bg-amber-100/80">
+        <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+        </svg>
+      </div>
+      <div class="mb-4 grid grid-cols-2 gap-4">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="flex h-24 items-center justify-center rounded-lg bg-amber-100/80">
+            <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+            </svg>
+          </div>
+        }
+      </div>
+      <div class="mb-4 flex h-48 items-center justify-center rounded-lg bg-amber-100/80">
+        <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+        </svg>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <div class="flex h-24 items-center justify-center rounded-lg bg-amber-100/80">
+            <svg class="h-5 w-5 text-amber-700/50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+            </svg>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

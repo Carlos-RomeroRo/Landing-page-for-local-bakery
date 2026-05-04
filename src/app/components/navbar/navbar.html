@@ -10,19 +10,20 @@
     <div class="hidden w-full lg:block lg:w-auto mr-4">
       <ul class="font-medium flex flex-col p-0 lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0">
           <li>
-            <a href="#home" 
+            <a routerLink="/" fragment="home"
+               (click)="closeMenu()"
                [class.text-yellow-300]="isActive('home')"
                [class.bg-amber-800]="isActive('home')"
                [class.rounded-lg]="isActive('home')"
                [class.px-3]="isActive('home')"
                [class.py-1]="isActive('home')"
-               class="block py-2 px-3 text-amber-100 hover:text-yellow-300 transition duration-300 lg:p-0" 
+               class="block py-2 px-3 text-amber-100 hover:text-yellow-300 transition duration-300 lg:p-0"
                aria-current="page">
               Home
             </a>
           </li>
           <li>
-            <a href="#nosotros" 
+            <a routerLink="/" fragment="nosotros"
                (click)="closeMenu()"
                [class.text-yellow-300]="isActive('nosotros')"
                [class.bg-amber-800]="isActive('nosotros')"
@@ -34,7 +35,8 @@
             </a>
           </li>
           <li>
-            <a href="#productos" 
+            <a routerLink="/productos"
+               (click)="closeMenu()"
                [class.text-yellow-300]="isActive('productos')"
                [class.bg-amber-800]="isActive('productos')"
                [class.rounded-lg]="isActive('productos')"
@@ -45,7 +47,8 @@
             </a>
           </li>
           <li>
-            <a href="#contacto" 
+            <a routerLink="/" fragment="contacto"
+               (click)="closeMenu()"
                [class.text-yellow-300]="isActive('contacto')"
                [class.bg-amber-800]="isActive('contacto')"
                [class.rounded-lg]="isActive('contacto')"
@@ -85,14 +88,15 @@
     class="lg:hidden bg-amber-900/98 backdrop-blur-md px-8 pb-4 pt-2 border-t border-amber-800/50">
     <ul class="font-medium">
       <li>
-        <a href="#home" 
+        <a routerLink="/" fragment="home"
+           (click)="closeMenu()"
            [class.text-yellow-300]="isActive('home')"
            [class.bg-amber-800]="isActive('home')"
            [class.rounded-lg]="isActive('home')"
            class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Home</a>
       </li>
       <li>
-        <a href="#nosotros" 
+        <a routerLink="/" fragment="nosotros"
            (click)="closeMenu()"
            [class.text-yellow-300]="isActive('nosotros')"
            [class.bg-amber-800]="isActive('nosotros')"
@@ -100,14 +104,16 @@
            class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Nosotros</a>
       </li>
       <li>
-        <a href="#productos" 
+        <a routerLink="/productos"
+           (click)="closeMenu()"
            [class.text-yellow-300]="isActive('productos')"
            [class.bg-amber-800]="isActive('productos')"
            [class.rounded-lg]="isActive('productos')"
            class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Productos</a>
       </li>
       <li>
-        <a href="#contacto" 
+        <a routerLink="/" fragment="contacto"
+           (click)="closeMenu()"
            [class.text-yellow-300]="isActive('contacto')"
            [class.bg-amber-800]="isActive('contacto')"
            [class.rounded-lg]="isActive('contacto')"
