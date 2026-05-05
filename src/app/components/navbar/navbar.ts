@@ -26,7 +26,12 @@ export class Navbar implements OnInit, OnDestroy {
   ngOnInit() {
     this.routerSub = this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(() => this.setupSectionObserver());
+      .subscribe(() => {
+        // Cerrar tras navegar: si closeMenu() va en el (click) del enlace, el panel móvil
+        // se oculta antes de que RouterLink procese el clic y la navegación no ocurre.
+        this.isMenuOpen.set(false);
+        this.setupSectionObserver();
+      });
     this.setupSectionObserver();
   }
 
@@ -39,9 +44,12 @@ export class Navbar implements OnInit, OnDestroy {
     this.modalService.openModal(type);
   }
 
-  private isProductosRoute(): boolean {
+  /** Ruta dedicada (path → clave del ítem del menú). Home usa fragmentos u observador. */
+  private routeNavSection(): string | null {
     const path = this.router.url.split('#')[0].split('?')[0];
-    return path === '/productos';
+    if (path === '/productos') return 'productos';
+    if (path === '/nosotros') return 'nosotros';
+    return null;
   }
 
   private urlFragment(): string | null {
@@ -57,7 +65,7 @@ export class Navbar implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.isProductosRoute()) {
+    if (this.routeNavSection() !== null) {
       return;
     }
 
@@ -89,8 +97,9 @@ export class Navbar implements OnInit, OnDestroy {
   }
 
   isActive(section: string): boolean {
-    if (this.isProductosRoute()) {
-      return section === 'productos';
+    const routed = this.routeNavSection();
+    if (routed !== null) {
+      return section === routed;
     }
 
     const fragment = this.urlFragment();
@@ -103,9 +112,5 @@ export class Navbar implements OnInit, OnDestroy {
 
   toggleMenu() {
     this.isMenuOpen.update((open) => !open);
-  }
-
-  closeMenu() {
-    this.isMenuOpen.set(false);
   }
 }

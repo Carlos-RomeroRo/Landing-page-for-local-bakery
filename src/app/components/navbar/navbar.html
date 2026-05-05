@@ -11,7 +11,6 @@
       <ul class="font-medium flex flex-col p-0 lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0">
           <li>
             <a routerLink="/" fragment="home"
-               (click)="closeMenu()"
                [class.text-yellow-300]="isActive('home')"
                [class.bg-amber-800]="isActive('home')"
                [class.rounded-lg]="isActive('home')"
@@ -23,8 +22,7 @@
             </a>
           </li>
           <li>
-            <a routerLink="/" fragment="nosotros"
-               (click)="closeMenu()"
+            <a routerLink="/nosotros"
                [class.text-yellow-300]="isActive('nosotros')"
                [class.bg-amber-800]="isActive('nosotros')"
                [class.rounded-lg]="isActive('nosotros')"
@@ -36,7 +34,6 @@
           </li>
           <li>
             <a routerLink="/productos"
-               (click)="closeMenu()"
                [class.text-yellow-300]="isActive('productos')"
                [class.bg-amber-800]="isActive('productos')"
                [class.rounded-lg]="isActive('productos')"
@@ -48,7 +45,6 @@
           </li>
           <li>
             <a routerLink="/" fragment="contacto"
-               (click)="closeMenu()"
                [class.text-yellow-300]="isActive('contacto')"
                [class.bg-amber-800]="isActive('contacto')"
                [class.rounded-lg]="isActive('contacto')"
@@ -89,15 +85,13 @@
     <ul class="font-medium">
       <li>
         <a routerLink="/" fragment="home"
-           (click)="closeMenu()"
            [class.text-yellow-300]="isActive('home')"
            [class.bg-amber-800]="isActive('home')"
            [class.rounded-lg]="isActive('home')"
            class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Home</a>
       </li>
       <li>
-        <a routerLink="/" fragment="nosotros"
-           (click)="closeMenu()"
+        <a routerLink="/nosotros"
            [class.text-yellow-300]="isActive('nosotros')"
            [class.bg-amber-800]="isActive('nosotros')"
            [class.rounded-lg]="isActive('nosotros')"
@@ -105,7 +99,6 @@
       </li>
       <li>
         <a routerLink="/productos"
-           (click)="closeMenu()"
            [class.text-yellow-300]="isActive('productos')"
            [class.bg-amber-800]="isActive('productos')"
            [class.rounded-lg]="isActive('productos')"
@@ -113,7 +106,6 @@
       </li>
       <li>
         <a routerLink="/" fragment="contacto"
-           (click)="closeMenu()"
            [class.text-yellow-300]="isActive('contacto')"
            [class.bg-amber-800]="isActive('contacto')"
            [class.rounded-lg]="isActive('contacto')"
