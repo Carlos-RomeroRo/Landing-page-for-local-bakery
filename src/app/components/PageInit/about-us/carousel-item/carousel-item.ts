@@ -1,6 +1,6 @@
 import { Component, Input, signal, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalService, ModalType } from '../../../services/modal.service';
+import { ModalService, ModalType } from '../../../../services/modal.service';
 
 export interface CarouselItem {
   image: string;

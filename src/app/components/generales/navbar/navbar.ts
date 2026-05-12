@@ -1,9 +1,20 @@
-import { Component, signal, OnInit, OnDestroy } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  inject,
+  Injector,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { ModalService, ModalType } from '../../services/modal.service';
+import { ModalService, ModalType } from '../../../services/modal.service';
+
+/** Rutas con página propia (no son fragmentos del home). */
+type DedicatedNav = 'productos' | 'nosotros';
 
 @Component({
   selector: 'app-navbar',
@@ -15,8 +26,12 @@ import { ModalService, ModalType } from '../../services/modal.service';
 export class Navbar implements OnInit, OnDestroy {
   isMenuOpen = signal(false);
   activeSection = signal('home');
+  /** Sincronizado con la URL real (incl. tras hidratación del cliente). */
+  private readonly dedicatedNav = signal<DedicatedNav | null>(null);
+
   private observer: IntersectionObserver | null = null;
   private routerSub?: Subscription;
+  private readonly injector = inject(Injector);
 
   constructor(
     private modalService: ModalService,
@@ -24,15 +39,25 @@ export class Navbar implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.applyUrlToDedicatedNav(this.router.url);
+
     this.routerSub = this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(() => {
-        // Cerrar tras navegar: si closeMenu() va en el (click) del enlace, el panel móvil
-        // se oculta antes de que RouterLink procese el clic y la navegación no ocurre.
+      .subscribe((e) => {
         this.isMenuOpen.set(false);
+        this.applyUrlToDedicatedNav(e.urlAfterRedirects);
         this.setupSectionObserver();
       });
+
     this.setupSectionObserver();
+
+    afterNextRender(
+      () => {
+        this.applyUrlToDedicatedNav(this.router.url);
+        this.setupSectionObserver();
+      },
+      { injector: this.injector },
+    );
   }
 
   ngOnDestroy() {
@@ -44,12 +69,26 @@ export class Navbar implements OnInit, OnDestroy {
     this.modalService.openModal(type);
   }
 
-  /** Ruta dedicada (path → clave del ítem del menú). Home usa fragmentos u observador. */
-  private routeNavSection(): string | null {
-    const path = this.router.url.split('#')[0].split('?')[0];
-    if (path === '/productos') return 'productos';
-    if (path === '/nosotros') return 'nosotros';
+  private applyUrlToDedicatedNav(fullUrl: string): void {
+    this.dedicatedNav.set(this.parseDedicatedNav(fullUrl));
+  }
+
+  private parseDedicatedNav(fullUrl: string): DedicatedNav | null {
+    const tree = this.router.parseUrl(fullUrl);
+    const primary = tree.root.children['primary'];
+    const segments = primary?.segments.map((s) => s.path) ?? [];
+    const first = segments[0];
+    if (first === 'productos') {
+      return 'productos';
+    }
+    if (first === 'nosotros') {
+      return 'nosotros';
+    }
     return null;
+  }
+
+  private routeNavSection(): string | null {
+    return this.dedicatedNav();
   }
 
   private urlFragment(): string | null {

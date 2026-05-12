@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductSearch } from '../../components/product_Page/product-search/product-search';
-import { Footer } from '../../components/footer/footer';
+import { Footer } from '../../components/generales/footer/footer';
 
 @Component({
   selector: 'app-products-page',

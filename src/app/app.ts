@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Navbar } from './components/navbar/navbar';
+import { Navbar } from './components/generales/navbar/navbar';
 import { WhatsappButton } from './components/whatsapp-button/whatsapp-button';
 import { Modal } from './components/modal/modal';
 

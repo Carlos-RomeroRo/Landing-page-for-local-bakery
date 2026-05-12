@@ -1,0 +1,61 @@
+<section #sectionRoot class="bg-white py-20 text-amber-950 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6 sm:px-8">
+    <p class="mb-3 text-center text-sm font-semibold uppercase tracking-wider text-amber-600">
+      Hitos
+    </p>
+    <h2 class="mb-14 text-center text-4xl font-bold uppercase text-amber-900 md:mb-16 md:text-5xl lg:text-6xl">
+      Nuestra Historia
+    </h2>
+
+    <div class="divide-y divide-stone-200">
+      @for (item of items; track item.year + item.title) {
+        <div
+          class="timeline-row flex flex-col items-center gap-4 py-10 text-center md:grid md:grid-cols-12 md:gap-6 md:text-left"
+        >
+          <div
+            class="text-sm font-semibold uppercase tracking-widest text-amber-600 md:col-span-2 md:pt-1"
+          >
+            {{ item.year }}
+          </div>
+
+          <div class="md:col-span-8">
+            <h3 class="mb-2 text-2xl font-bold uppercase text-amber-900 md:text-3xl">
+              {{ item.title }}
+            </h3>
+            <p class="mx-auto max-w-2xl leading-relaxed text-stone-600 md:mx-0">
+              {{ item.description }}
+            </p>
+            @if (item.image) {
+              <img
+                [src]="item.image"
+                [alt]="item.title"
+                class="mt-4 max-h-48 w-full rounded-lg border border-stone-200 object-cover shadow-sm md:max-w-md"
+                loading="lazy"
+              />
+            }
+            @if (item.videoUrl) {
+              <a
+                [href]="item.videoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-3 inline-block text-sm font-semibold text-amber-700 underline decoration-amber-700/40 underline-offset-4 hover:text-amber-900 hover:decoration-amber-900/50"
+              >
+                Ver video
+              </a>
+            }
+          </div>
+
+          @if (item.company) {
+            <div
+              class="text-sm font-semibold uppercase tracking-wide text-amber-800/80 md:col-span-2 md:text-right md:text-amber-700/90"
+            >
+              {{ item.company }}
+            </div>
+          } @else {
+            <div class="hidden md:col-span-2 md:block" aria-hidden="true"></div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

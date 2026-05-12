@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalService, ModalType } from '../../services/modal.service';
+import { ModalService, ModalType } from '../../../services/modal.service';
 
 @Component({
   selector: 'app-hero',

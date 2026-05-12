@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Footer } from '../../components/footer/footer';
+import { Footer } from '../../components/generales/footer/footer';
 import { AboutUs } from '../../components/about-us-page/about-us/about-us';
 
 @Component({
