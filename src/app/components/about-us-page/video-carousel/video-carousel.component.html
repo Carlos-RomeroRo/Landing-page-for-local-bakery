@@ -98,11 +98,13 @@
                           #videoPlayer
                           class="absolute inset-0 h-full w-full object-cover"
                           [src]="video.videoUrl"
-                          [poster]="video.poster ?? ''"
                           [title]="video.title"
-                          controls
+                          muted
+                          autoplay
+                          loop
                           playsinline
-                          preload="metadata"
+                          preload="auto"
+                          disablePictureInPicture
                         ></video>
                         <div
                           class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-transparent px-2.5 pb-2.5 pt-8 sm:px-3 sm:pb-3 sm:pt-10"

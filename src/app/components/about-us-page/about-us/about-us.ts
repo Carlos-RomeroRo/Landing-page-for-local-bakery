@@ -186,68 +186,68 @@ export class AboutUs {
 
   readonly productVideos: VideoCarouselItem[] = [
     {
-      id: 'pan-campesino',
-      title: 'Pan campesino',
-      description: 'Corteza dorada y miga suave, horneado cada mañana.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'en-la-linea-pan',
+      title: 'En la línea y con ganas de pan',
+      description:
+        '¿En dieta? Tranqui: a veces un antojo de Zapatoca es justo lo que necesitas para sonreír en la fila.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947834/Di_la_l%C3%ADnea_y_c%C3%B3ete_el_pan_Pero_estoy_a_dieta_Tranqui_eso_lo_arregla_edici%C3%B3n_La_edi_ha53f0.mp4',
     },
     {
-      id: 'croissants',
-      title: 'Croissants',
-      description: 'Hojaldre mantecoso con el punto justo de crocancia.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'pudin-chocolate',
+      title: 'Solo un poquito… y ya van dos',
+      description:
+        'Dices que será un pudín de chocolate nomás, pero uno no alcanza y dos tampoco. Así de irresistible.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947840/dices_solo_un_poquito_y_terminas_as%C3%AD_Un_pud%C3%ADn_no_es_suficiente_dos_tampoco_Chocolate_v_biyhe3.mp4',
     },
     {
-      id: 'tortas',
-      title: 'Tortas artesanales',
-      description: 'Rellenos caseros para celebrar en familia.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'queso-crujiente',
+      title: 'El sonido que todos queremos escuchar',
+      description:
+        'Queso derretido, masa perfecta y ese crujido que solo sale del horno de Zapatoca.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947840/El_sonido_que_todos_queremos_escuchar_Queso_derretido_masa_perfecta_y_ese_sabor_que_solo_e_u5zcbz.mp4',
     },
     {
-      id: 'galletas',
-      title: 'Galletas',
-      description: 'Recetas tradicionales con sabor a hogar.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'sabor-bizcopan',
+      title: 'Sabor que se siente y se presume',
+      description:
+        'En Bizcopan Zapatoca cada bocado es una pequeña celebración: calidad que se nota al primer mordisco.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947839/El_sabor_que_se_siente_pero_tambi%C3%A9n_se_presume_En_Bizcopan_Zapatoca_cada_bocado_es_un_peque_mrwsai.mp4',
     },
     {
-      id: 'empanadas',
-      title: 'Empanadas',
-      description: 'Relleno generoso y masa quebradiza al primer bocado.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'voz-interna',
+      title: 'Cuando aparece la voz interna',
+      description:
+        'Cero ideas, cero creatividad… hasta que el antojo de pan recién horneado te devuelve las ganas.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947838/Todos_hemos_estado_ah%C3%AD-_cero_ideas_cero_creatividad...Hasta_que_aparece_esa_voz_interna_o_vari_d3mzj9.mp4',
     },
     {
-      id: 'pan-de-yuca',
-      title: 'Pan de yuca',
-      description: 'Clásico santandereano recién salido del horno.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'momento-pan',
+      title: 'A veces no necesito palabras',
+      description:
+        'Solo pan recién horneado, aroma que calma y un momento para mí. Así de simple, así de Zapatoca.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947837/A_veces_no_necesito_palabras_solo_pan_reci%C3%A9n_horneado_olor_que_calma_y_un_momento_para_m%C3%AD.My_the_i9gves.mp4',
     },
     {
-      id: 'masa-madre',
-      title: 'Masa madre',
-      description: 'Fermentación lenta para un sabor profundo.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'malteada-fresas',
+      title: 'La malteada de tus sueños',
+      description:
+        'Dulce, cremosa y con el toque perfecto de fresas frescas: el acompañante ideal para endulzar tu día.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947834/La_malteada_de_tus_sue%C3%B1os_Dulce_cremosa_y_con_el_toque_perfecto_de_fresas_frescas_Nuest_ekyr3z.mp4',
     },
     {
-      id: 'horno',
-      title: 'Nuestro horno',
-      description: 'El corazón de la panadería, encendido desde 1998.',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-      poster:
-        'https://res.cloudinary.com/dadlhhv4t/image/upload/v1777689098/Logo_zapatoca_kkmcy2.jpg',
+      id: 'hey-pan-lover',
+      title: 'Hey, pan lover',
+      description:
+        '¿Te gusta el pan? Entonces tienes que venir a la mejor panadería de Santa Marta: Panadería Zapatoca te espera.',
+      videoUrl:
+        'https://res.cloudinary.com/dadlhhv4t/video/upload/v1778947836/Hey_pan_lover_Te_gusta_el_pan_Entonces_tienes_que_venir_a_la_mejor_panader%C3%ADa_de_Santa_Mar_i6avyf.mp4',
     },
   ];
 }
