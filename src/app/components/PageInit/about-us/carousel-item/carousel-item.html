@@ -8,9 +8,9 @@
          [class.scale-100]="activeIndex() === i"
          [class.scale-95]="activeIndex() !== i"
          (click)="setActive(i)">
-      <span class="text-7xl font-bold text-amber-200 mb-4 tracking-tighter">{{ item.number }}</span>
-      <h3 class="text-4xl lg:text-5xl font-bold text-amber-900 mb-6 leading-tight">{{ item.title }}</h3>
-      <p class="text-xl text-stone-600 leading-relaxed max-w-lg">{{ item.description }}</p>
+      <span class="mb-4 text-7xl font-bold tracking-tighter text-amber-200 dark:text-amber-500/50">{{ item.number }}</span>
+      <h3 class="mb-6 text-4xl font-bold leading-tight text-amber-900 dark:text-amber-50 lg:text-5xl">{{ item.title }}</h3>
+      <p class="max-w-lg text-xl leading-relaxed text-stone-600 dark:text-stone-300">{{ item.description }}</p>
 
       <div class="mt-8 lg:hidden overflow-hidden rounded-3xl shadow-2xl">
         <img [src]="item.image" [alt]="item.title" class="w-full h-64 object-cover" />
@@ -18,13 +18,14 @@
 
       <!-- Indicador de progreso -->
       <div class="mt-8 flex gap-2">
-        <div *ngFor="let dot of items; let j = index"
-             class="h-1.5 rounded-full transition-all duration-500"
-             [class.w-8]="activeIndex() === j"
-             [class.w-1.5]="activeIndex() !== j"
-             [class.bg-amber-500]="activeIndex() === j"
-             [class.bg-amber-200]="activeIndex() !== j">
-        </div>
+        <div
+          *ngFor="let dot of items; let j = index"
+          class="h-1.5 rounded-full transition-all duration-500"
+          [ngClass]="{
+            'w-8 bg-amber-500': activeIndex() === j,
+            'w-1.5 bg-amber-200 dark:bg-stone-600': activeIndex() !== j
+          }"
+        ></div>
       </div>
     </div>
   </div>

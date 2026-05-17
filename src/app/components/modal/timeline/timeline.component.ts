@@ -10,11 +10,19 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
+import {
+  FadeDirective,
+  loadGsapWithScrollTrigger,
+  refreshScrollTriggers,
+  scrollRevealFrom,
+} from '../../../animation';
+
 import { TimelineItem } from './timeline-item.interface';
 
 @Component({
   selector: 'app-timeline',
   standalone: true,
+  imports: [FadeDirective],
   templateUrl: './timeline.component.html',
 })
 export class TimelineComponent implements OnDestroy {
@@ -44,32 +52,24 @@ export class TimelineComponent implements OnDestroy {
       return;
     }
 
-    const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-      import('gsap'),
-      import('gsap/ScrollTrigger'),
-    ]);
-    gsap.registerPlugin(ScrollTrigger);
+    const gsap = await loadGsapWithScrollTrigger();
+
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+    const playReveal: Array<() => void> = [];
 
     const ctx = gsap.context(() => {
       rows.forEach((row) => {
-        gsap.from(row, {
-          opacity: 0,
-          y: 40,
-          duration: 0.6,
-          ease: 'power3.out',
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: row,
-            start: 'top 92%',
-            toggleActions: 'play none none none',
-            invalidateOnRefresh: true,
-          },
-        });
+        const handle = scrollRevealFrom(gsap, row, { y: 40, duration: 0.6 });
+        playReveal.push(handle.play);
       });
     }, root);
 
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+    await refreshScrollTriggers();
+
+    rows.forEach((row, index) => {
+      if (ScrollTrigger.isInViewport(row)) {
+        playReveal[index]?.();
+      }
     });
 
     this.revertContext = () => ctx.revert();

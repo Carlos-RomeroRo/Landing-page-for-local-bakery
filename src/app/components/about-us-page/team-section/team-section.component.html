@@ -1,0 +1,75 @@
+<section
+  #sectionRoot
+  id="equipo"
+  class="team-section block w-full bg-yellow-500 pt-20 pb-16 text-amber-50 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24"
+  [class.team-section--list-pending]="listPending()"
+  aria-labelledby="team-section-heading"
+>
+  <div class="mx-auto max-w-[100rem] px-6 sm:px-8 lg:px-12 xl:px-16">
+    <header #sectionIntro class="team-section__intro mb-10 text-center sm:mb-12 lg:mb-14 lg:text-left">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-amber-50/85">
+        {{ sectionLabel() }}
+      </p>
+      <h2
+        id="team-section-heading"
+        class="text-3xl font-bold leading-tight tracking-tight text-amber-50 sm:text-4xl lg:text-5xl [text-shadow:0_1px_3px_rgba(69,26,3,0.2)]"
+      >
+        {{ sectionIntroTitle() }}
+      </h2>
+      @if (sectionIntroDescription()) {
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-amber-50/90 sm:text-lg lg:mx-0">
+          {{ sectionIntroDescription() }}
+        </p>
+      }
+    </header>
+
+    <div class="team-section__grid gap-8 lg:gap-12">
+      <div class="team-section__media relative min-h-[22rem] sm:min-h-[26rem] lg:min-h-[36rem]">
+        @if (selectedMember(); as member) {
+          <img
+            #memberPhoto
+            class="team-section__photo absolute inset-0 h-full w-full rounded-2xl object-cover object-center lg:rounded-3xl"
+            [src]="member.photoUrl"
+            [alt]="'Foto de ' + member.name"
+            width="800"
+            height="1000"
+            loading="lazy"
+            decoding="async"
+          />
+        }
+      </div>
+
+      <div
+        class="team-section__content flex flex-col justify-between px-0 py-2 sm:py-4 lg:px-4 lg:py-6 xl:px-8"
+      >
+        <div #memberDetail class="team-section__detail max-w-xl">
+          @if (selectedMember(); as member) {
+            <h3 class="mb-4 text-2xl font-semibold tracking-tight text-amber-50 sm:text-3xl">
+              {{ member.name }}
+            </h3>
+            <p class="text-base leading-relaxed text-amber-50/90 sm:text-lg">
+              {{ member.description }}
+            </p>
+          }
+        </div>
+
+        <ul #memberList class="team-section__list mt-10 lg:mt-14" role="list">
+          @for (member of items(); track member.id) {
+            <li>
+              <button
+                type="button"
+                class="team-member-row"
+                [class.team-member-row--active]="isSelected(member)"
+                [attr.aria-current]="isSelected(member) ? 'true' : null"
+                (click)="selectMember(member)"
+              >
+                <span class="team-member-row__name text-sm sm:text-base">{{ member.name }}</span>
+                <span class="team-member-row__role shrink-0 text-sm sm:text-base">{{ member.role }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

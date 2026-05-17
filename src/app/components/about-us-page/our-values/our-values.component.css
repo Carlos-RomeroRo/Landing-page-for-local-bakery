@@ -1,0 +1,169 @@
+.our-values-card {
+  position: relative;
+  min-width: 0;
+  border-radius: 0.875rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+  border: 1px solid #e7e5e4;
+  background: #fafaf9;
+  box-shadow: 0 4px 20px rgba(28, 25, 23, 0.06);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease,
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.our-values-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #eab308, rgba(234, 179, 8, 0.15));
+  opacity: 0.65;
+  transition:
+    opacity 0.4s ease,
+    height 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.our-values-divider {
+  background: linear-gradient(90deg, #d6d3d1, transparent);
+  transition: opacity 0.4s ease;
+}
+
+.our-values-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.our-values-card__index {
+  color: #78716c;
+}
+
+.our-values-card__title {
+  color: #1c1917;
+}
+
+.our-values-card__text {
+  color: #57534e;
+}
+
+.our-values-icon {
+  color: #b45309;
+  opacity: 0.95;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease,
+    color 0.4s ease,
+    filter 0.4s ease;
+}
+
+.our-values-icon svg {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .our-values-card--offset {
+    margin-top: 2.5rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .our-values-card:hover {
+    transform: translateY(-5px);
+    filter: none;
+    background: #fffbeb;
+    border-color: #fde047;
+    box-shadow: 0 14px 36px rgba(180, 83, 9, 0.12);
+  }
+
+  .our-values-card:hover::before {
+    opacity: 1;
+    height: 3px;
+    box-shadow: 0 0 14px rgba(234, 179, 8, 0.45);
+  }
+
+  .our-values-card:hover .our-values-divider {
+    opacity: 1;
+    background: linear-gradient(90deg, #ca8a04, transparent);
+  }
+
+  .our-values-card:hover .our-values-icon {
+    transform: scale(1.06) translateY(-2px);
+    opacity: 1;
+    color: #a16207;
+  }
+
+  .our-values-card:hover .our-values-card__title {
+    color: #1c1917;
+  }
+}
+
+/* Modo oscuro: tarjetas ámbar llamativas sobre fondo negro */
+html.dark .our-values-card {
+  border-color: rgba(250, 204, 21, 0.45);
+  background: linear-gradient(155deg, #4a3d1a 0%, #2f2612 48%, #221c0d 100%);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(254, 240, 138, 0.12);
+}
+
+html.dark .our-values-card::before {
+  opacity: 1;
+  height: 3px;
+  background: linear-gradient(90deg, #fde047, #f59e0b, rgba(245, 158, 11, 0.2));
+  box-shadow: 0 0 16px rgba(253, 224, 71, 0.35);
+}
+
+html.dark .our-values-divider {
+  background: linear-gradient(90deg, rgba(253, 224, 71, 0.55), transparent);
+}
+
+html.dark .our-values-card__index {
+  color: rgba(254, 243, 199, 0.75);
+}
+
+html.dark .our-values-card__title {
+  color: #fef9c3;
+}
+
+html.dark .our-values-card__text {
+  color: #e7e5e4;
+}
+
+html.dark .our-values-icon {
+  color: #facc15;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.dark .our-values-card:hover {
+    border-color: rgba(253, 224, 71, 0.7);
+    background: linear-gradient(155deg, #5c4a22 0%, #3a3016 48%, #2a230f 100%);
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.5),
+      0 0 24px rgba(250, 204, 21, 0.15);
+  }
+
+  html.dark .our-values-card:hover .our-values-card__title {
+    color: #fffbeb;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .our-values-card,
+  .our-values-card--offset,
+  .our-values-card::before,
+  .our-values-icon,
+  .our-values-divider {
+    transition: none;
+  }
+
+  .our-values-card--offset {
+    margin-top: 0;
+  }
+}
+

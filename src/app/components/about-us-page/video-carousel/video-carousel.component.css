@@ -1,0 +1,38 @@
+.video-carousel-track {
+  transition: transform 700ms ease-in-out;
+}
+
+.video-carousel-viewport {
+  min-height: 16rem;
+}
+
+.video-carousel-card {
+  max-height: min(72vh, 36rem);
+  min-width: 0;
+}
+
+.video-carousel-card .aspect-\[9\/16\] {
+  max-height: inherit;
+}
+
+@media (min-width: 768px) {
+  .video-carousel-viewport {
+    min-height: 0;
+  }
+
+  .video-carousel-card {
+    max-height: min(78vh, 42rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-carousel-card {
+    max-height: min(88vh, 52rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-carousel-track {
+    transition: none;
+  }
+}

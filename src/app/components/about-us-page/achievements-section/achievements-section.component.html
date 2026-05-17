@@ -1,0 +1,58 @@
+<section
+  #sectionRoot
+  id="logros"
+  class="achievements-section app-surface-muted block w-full py-20 sm:py-24 lg:py-28"
+  [class.achievements-section--cards-pending]="cardsPending()"
+  aria-labelledby="achievements-heading"
+>
+  <div class="mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
+    <div class="achievements-section__layout">
+      <aside #sectionIntro class="achievements-section__intro">
+        <p
+          class="achievements-intro-badge mb-4 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-amber-900"
+        >
+          <app-icon name="award" [size]="14" />
+          {{ sectionLabel() }}
+        </p>
+        <p class="mb-3 text-sm font-medium text-stone-500 dark:text-stone-400">
+          {{ sectionEyebrow() }}
+        </p>
+        <h2
+          id="achievements-heading"
+          class="text-3xl font-bold leading-tight tracking-tight text-stone-900 dark:text-amber-50 sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
+        >
+          {{ sectionTitleLead() }}
+          <span class="text-stone-400 dark:text-stone-500">{{ sectionTitleAccent() }}</span>
+        </h2>
+        <div class="achievements-section__divider my-6 max-w-xs" aria-hidden="true"></div>
+        <p class="max-w-md text-base leading-relaxed text-stone-600 dark:text-stone-300 sm:text-lg">
+          {{ sectionDescription() }}
+        </p>
+      </aside>
+
+      <div #cardsColumn class="achievements-section__cards flex flex-col gap-5 sm:gap-6">
+        @for (item of items(); track item.id) {
+          <article class="achievements-card achievements-card--pending p-6 sm:p-8">
+            <div class="achievements-card__icon mb-5" aria-hidden="true">
+              <app-icon [name]="item.icon" [size]="22" />
+            </div>
+
+            @if (item.value) {
+              <p class="achievements-card__value mb-2 text-3xl font-bold tabular-nums tracking-tight sm:text-4xl">
+                {{ item.value }}
+              </p>
+            }
+
+            <h3 class="achievements-card__title mb-3 text-xl font-semibold leading-snug sm:text-2xl">
+              {{ item.title }}
+            </h3>
+            <p class="achievements-card__text mb-6 text-sm leading-relaxed sm:text-base">
+              {{ item.description }}
+            </p>
+            <span class="achievements-card__tag">{{ item.tag }}</span>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

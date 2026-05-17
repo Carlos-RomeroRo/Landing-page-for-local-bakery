@@ -57,13 +57,20 @@
         </ul>
       </div>
       
-      <!-- Botón CTA -->
-      <button type="button" (click)="openModal('order')" class="hidden lg:block bg-yellow-500 text-amber-900 font-semibold px-5 py-2 rounded-lg hover:bg-yellow-400 hover:scale-105 transition duration-300 shadow-md">
-        Pedir Ahora
-      </button>
-      
-      <!-- Botón hamburguesa -->
-      <button 
+      <div class="flex items-center gap-2 sm:gap-3">
+        <app-dark-mode-toggle />
+
+        <!-- Botón CTA -->
+        <button
+          type="button"
+          (click)="openModal('order')"
+          class="hidden lg:block bg-yellow-500 text-amber-900 font-semibold px-5 py-2 rounded-lg hover:bg-yellow-400 hover:scale-105 transition duration-300 shadow-md"
+        >
+          Pedir Ahora
+        </button>
+
+        <!-- Botón hamburguesa -->
+        <button
         (click)="toggleMenu()"
         type="button" 
         class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-amber-50 rounded-lg lg:hidden hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-600" 
@@ -76,8 +83,9 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
-    </div>
-  
+      </div>
+  </div>
+
   <!-- Menú mobile - controlado por el signal -->
   <div 
     [class.hidden]="!isMenuOpen()"
@@ -111,8 +119,16 @@
            [class.rounded-lg]="isActive('contacto')"
            class="block py-3 px-2 text-amber-100 hover:text-yellow-300 transition duration-300">Contacto</a>
       </li>
+      <li class="flex items-center justify-between gap-3 py-3">
+        <span class="text-sm text-amber-100/90">Tema</span>
+        <app-dark-mode-toggle />
+      </li>
       <li class="pt-2">
-        <button type="button" (click)="openModal('order')" class="w-full bg-yellow-500 text-amber-900 font-semibold px-5 py-3 rounded-lg hover:bg-yellow-400 transition duration-300">
+        <button
+          type="button"
+          (click)="openModal('order')"
+          class="w-full bg-yellow-500 text-amber-900 font-semibold px-5 py-3 rounded-lg hover:bg-yellow-400 transition duration-300"
+        >
           Pedir Ahora
         </button>
       </li>

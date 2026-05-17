@@ -1,0 +1,74 @@
+<section
+  id="nuestros-valores"
+  class="our-values-section app-surface relative overflow-hidden py-20 sm:py-24 lg:py-28"
+  aria-labelledby="our-values-heading"
+>
+  <div class="relative mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
+    <header class="mb-12 text-center md:mb-16">
+      <p
+        appFade
+        appFadeScroll
+        [appFadeY]="12"
+        class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-400"
+      >
+        {{ sectionLabel() }}
+      </p>
+      <h2
+        id="our-values-heading"
+        appFade
+        appFadeScroll
+        [appFadeDelay]="0.08"
+        [appFadeY]="28"
+        class="mb-4 text-3xl font-bold uppercase tracking-tight text-stone-900 dark:text-amber-50 sm:text-4xl md:text-5xl lg:text-6xl"
+      >
+        {{ sectionTitle() }}
+      </h2>
+      <p
+        appFade
+        appFadeScroll
+        [appFadeDelay]="0.16"
+        [appFadeY]="20"
+        class="mx-auto max-w-2xl text-base leading-relaxed text-stone-600 dark:text-stone-300 sm:text-lg"
+      >
+        {{ sectionDescription() }}
+      </p>
+    </header>
+
+    @if (items().length === 0) {
+      <p class="text-center text-stone-500 dark:text-stone-400">No hay valores para mostrar.</p>
+    } @else {
+      <div
+        class="our-values-grid grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 md:gap-x-14 md:gap-y-14 lg:gap-y-16"
+      >
+        @for (value of items(); track value.id; let i = $index) {
+          <article
+            appFade
+            appFadeScroll
+            [appFadeDelay]="fadeDelay(i)"
+            [appFadeY]="28"
+            [appFadeDuration]="0.8"
+            class="our-values-card"
+            [class.our-values-card--offset]="isStaggered(i)"
+          >
+            <div class="our-values-card-line mb-5 flex items-center gap-3" aria-hidden="true">
+              <span class="our-values-card__index text-sm font-light tabular-nums tracking-widest">
+                {{ formatIndex(i) }}
+              </span>
+              <span class="our-values-divider h-px flex-1"></span>
+            </div>
+
+            <div class="our-values-card-body">
+              <app-icon class="our-values-icon mb-4" [name]="value.icon" [size]="24" />
+              <h3 class="our-values-card__title mb-2 text-xl font-semibold leading-snug tracking-tight sm:text-2xl">
+                {{ value.title }}
+              </h3>
+              <p class="our-values-card__text text-sm leading-relaxed sm:text-base">
+                {{ value.description }}
+              </p>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,136 @@
+.achievements-section__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .achievements-section__layout {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .achievements-section__intro {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.achievements-section__divider {
+  height: 1px;
+  background: linear-gradient(90deg, #d6d3d1, transparent);
+}
+
+.achievements-card {
+  border-radius: 1.25rem;
+  border: 1px solid #e7e5e4;
+  background: #ffffff;
+  box-shadow: 0 8px 32px rgba(28, 25, 23, 0.06);
+  will-change: transform, opacity;
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.achievements-card__value {
+  color: #1c1917;
+}
+
+.achievements-card__title {
+  color: #1c1917;
+}
+
+.achievements-card__text {
+  color: #57534e;
+}
+
+.achievements-card--pending {
+  opacity: 0;
+  transform: translate3d(0, 3rem, 0);
+}
+
+.achievements-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e7e5e4;
+  background: #fafaf9;
+  color: #b45309;
+  transition:
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease;
+}
+
+.achievements-card__tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background: #facc15;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #422006;
+}
+
+/* Modo oscuro */
+html.dark .achievements-intro-badge {
+  border-color: rgba(250, 204, 21, 0.45);
+  background: rgba(250, 204, 21, 0.15);
+  color: #fef08a;
+}
+
+html.dark .achievements-section__divider {
+  background: linear-gradient(90deg, rgba(253, 224, 71, 0.45), transparent);
+}
+
+html.dark .achievements-card {
+  border-color: rgba(250, 204, 21, 0.42);
+  background: linear-gradient(155deg, #4a3d1a 0%, #2f2612 48%, #221c0d 100%);
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(254, 240, 138, 0.1);
+}
+
+html.dark .achievements-card__value {
+  color: #fde047;
+  text-shadow: 0 0 28px rgba(250, 204, 21, 0.25);
+}
+
+html.dark .achievements-card__title {
+  color: #fef9c3;
+}
+
+html.dark .achievements-card__text {
+  color: #e7e5e4;
+}
+
+html.dark .achievements-card__icon {
+  border-color: rgba(253, 224, 71, 0.35);
+  background: rgba(0, 0, 0, 0.28);
+  color: #facc15;
+}
+
+html.dark .achievements-card__tag {
+  background: #facc15;
+  color: #422006;
+  box-shadow: 0 0 14px rgba(250, 204, 21, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievements-card--pending {
+    opacity: 1;
+    transform: none;
+  }
+
+  .achievements-card {
+    will-change: auto;
+  }
+}
+

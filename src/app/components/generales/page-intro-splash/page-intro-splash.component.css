@@ -1,0 +1,69 @@
+.page-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #dc2626;
+  will-change: transform;
+}
+
+.page-intro__waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.page-intro__wave--red {
+  fill: #dc2626;
+}
+
+.page-intro__wave--white {
+  fill: #ffffff;
+}
+
+.page-intro__tagline {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 1.5rem;
+  pointer-events: none;
+}
+
+.page-intro__words {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35em 0.5em;
+  font-size: clamp(2.5rem, 10vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+
+.page-intro__word--red {
+  color: #dc2626;
+}
+
+.page-intro__word--white {
+  color: #ffffff;
+  -webkit-text-stroke: 2.5px #dc2626;
+  paint-order: stroke fill;
+}
+
+html.page-intro-active {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-intro {
+    display: none;
+  }
+}

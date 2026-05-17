@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { DarkModeToggleComponent } from '../dark-mode-toggle/dark-mode-toggle.component';
 import { ModalService, ModalType } from '../../../services/modal.service';
 
 /** Rutas con página propia (no son fragmentos del home). */
@@ -19,7 +20,7 @@ type DedicatedNav = 'productos' | 'nosotros';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, DarkModeToggleComponent],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })

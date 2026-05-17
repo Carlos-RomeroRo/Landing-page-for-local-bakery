@@ -1,3 +1,108 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html.dark {
+  color-scheme: dark;
+}
+
+.app-surface {
+  background-color: #ffffff;
+  color: #1c1917;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+
+html.dark .app-surface {
+  background-color: #141414;
+  color: #fafaf9;
+}
+
+.app-surface-muted {
+  background-color: #f5f5f4;
+  color: #1c1917;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
+}
+
+html.dark .app-surface-muted {
+  background-color: #1a1a1a;
+  color: #fafaf9;
+}
+
+.app-surface-warm {
+  background-image: linear-gradient(to right, #fffbeb, #ffedd5);
+  color: #1c1917;
+  transition:
+    background-color 0.45s ease,
+    background-image 0.45s ease,
+    color 0.45s ease;
+}
+
+html.dark .app-surface-warm {
+  background-image: none;
+  background-color: #141414;
+  color: #fafaf9;
+}
+
+.app-surface-card {
+  background-color: #ffffff;
+  transition:
+    background-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+html.dark .app-surface-card {
+  background-color: #1f1f1f;
+}
+
+.app-fade-pending {
+  opacity: 0;
+  transform: translate3d(0, var(--app-fade-y, 24px), 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-fade-pending {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+.app-slide-in-left-pending {
+  opacity: 0;
+  transform: translate3d(var(--app-slide-x, -80px), 0, 0);
+  will-change: opacity, transform;
+}
+
+.app-typed-pending {
+  opacity: 0;
+}
+
+.app-typed-subtitle .typed-cursor {
+  display: inline;
+  vertical-align: baseline;
+  margin-left: 1px;
+  color: currentColor;
+  opacity: 1;
+  font-weight: 300;
+  line-height: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-slide-in-left-pending {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .app-typed-pending {
+    opacity: 1;
+  }
+}

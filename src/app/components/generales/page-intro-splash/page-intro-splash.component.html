@@ -1,0 +1,35 @@
+@if (visible()) {
+  <div #overlay class="page-intro" role="presentation" aria-hidden="true">
+    <svg
+      class="page-intro__waves"
+      viewBox="0 0 1440 900"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        #waveTop
+        class="page-intro__wave page-intro__wave--red"
+        d="M0,0 H1440 V300 C1080,300 360,300 0,300 H0,0 Z"
+      />
+      <path
+        #waveMiddle
+        class="page-intro__wave page-intro__wave--white"
+        d="M0,300 H1440 V600 C1080,600 360,600 0,600 H0,300 Z"
+      />
+      <path
+        #waveBottom
+        class="page-intro__wave page-intro__wave--red"
+        d="M0,600 H1440 V900 C1080,900 360,900 0,900 H0,600 Z"
+      />
+    </svg>
+
+    <h1 #tagline class="page-intro__tagline">
+      <span #words class="page-intro__words">
+        <span class="page-intro__word page-intro__word--red">el</span>
+        <span class="page-intro__word page-intro__word--white">mejor</span>
+        <span class="page-intro__word page-intro__word--red">pan</span>
+      </span>
+    </h1>
+  </div>
+}
