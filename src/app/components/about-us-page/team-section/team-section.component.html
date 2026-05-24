@@ -24,11 +24,11 @@
     </header>
 
     <div class="team-section__grid gap-8 lg:gap-12">
-      <div class="team-section__media relative min-h-[22rem] sm:min-h-[26rem] lg:min-h-[36rem]">
+      <div class="team-section__media relative aspect-[4/5] w-full sm:aspect-[3/4] lg:aspect-auto lg:min-h-[36rem]">
         @if (selectedMember(); as member) {
           <img
             #memberPhoto
-            class="team-section__photo absolute inset-0 h-full w-full rounded-2xl object-cover object-center lg:rounded-3xl"
+            class="team-section__photo absolute inset-0 h-full w-full rounded-2xl object-cover object-top lg:rounded-3xl lg:object-center"
             [src]="member.photoUrl"
             [alt]="'Foto de ' + member.name"
             width="800"

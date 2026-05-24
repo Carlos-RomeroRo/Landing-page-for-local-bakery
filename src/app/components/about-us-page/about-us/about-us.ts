@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, map, of } from 'rxjs';
+
 import { FadeDirective } from '../../../animation';
+import { TrabajadoresService } from '../../../services/trabajadores.service';
 import { TimelineComponent } from '../../modal/timeline/timeline.component';
 import { TimelineItem } from '../../modal/timeline/timeline-item.interface';
 import { OurValue } from '../our-values/our-value.interface';
 import { OurValuesComponent } from '../our-values/our-values.component';
 import { AchievementStat } from '../achievements-section/achievement-stat.interface';
 import { AchievementsSectionComponent } from '../achievements-section/achievements-section.component';
-import { TeamMember } from '../team-section/team-member.interface';
+import { FALLBACK_TEAM_MEMBERS } from '../team-section/team-members.fallback';
 import { TeamSectionComponent } from '../team-section/team-section.component';
+import { trabajadorToTeamMember } from '../team-section/trabajador.mapper';
 import { VideoCarouselComponent } from '../video-carousel/video-carousel.component';
 import { VideoCarouselItem } from '../video-carousel/video-carousel-item.interface';
 
@@ -29,6 +35,21 @@ import { VideoCarouselItem } from '../video-carousel/video-carousel-item.interfa
   styleUrl: './about-us.css',
 })
 export class AboutUs {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly trabajadoresService = inject(TrabajadoresService);
+
+  readonly teamMembers = toSignal(
+    isPlatformBrowser(this.platformId)
+      ? this.trabajadoresService.listar().pipe(
+          map((items) =>
+            items.length > 0 ? items.map(trabajadorToTeamMember) : FALLBACK_TEAM_MEMBERS,
+          ),
+          catchError(() => of(FALLBACK_TEAM_MEMBERS)),
+        )
+      : of(FALLBACK_TEAM_MEMBERS),
+    { initialValue: FALLBACK_TEAM_MEMBERS },
+  );
+
   readonly historyItems: TimelineItem[] = [
     {
       year: '1998',
@@ -146,41 +167,6 @@ export class AboutUs {
       description:
         'Fundada como negocio familiar, hemos crecido sin perder la esencia: pan honesto, hecho con pasión y oficio.',
       tag: 'Origen',
-    },
-  ];
-
-  readonly teamMembers: TeamMember[] = [
-    {
-      id: 'maria-gonzalez',
-      name: 'María González',
-      role: 'Directora general',
-      description:
-        'Lidera la visión de Panadería Zapatoca con más de quince años en el sector. Coordina equipos, cuida la experiencia del cliente y asegura que cada decisión honre la tradición familiar del negocio.',
-      photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80&auto=format&fit=crop',
-    },
-    {
-      id: 'carlos-ramirez',
-      name: 'Carlos Ramírez',
-      role: 'Maestro panadero',
-      description:
-        'Aprendió el oficio junto a su abuelo y hoy supervisa fermentaciones, horneados y recetas de masa madre. Su criterio define el sabor auténtico que nos distingue en Zapatoca.',
-      photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80&auto=format&fit=crop',
-    },
-    {
-      id: 'ana-lucia-velez',
-      name: 'Ana Lucía Vélez',
-      role: 'Jefa de pastelería',
-      description:
-        'Diseña tortas, postres y líneas estacionales con ingredientes locales. Combina técnica francesa con recuerdos de cocina casera para sorprender en cada celebración.',
-      photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&q=80&auto=format&fit=crop',
-    },
-    {
-      id: 'diego-sarmiento',
-      name: 'Diego Sarmiento',
-      role: 'Operaciones',
-      description:
-        'Organiza producción diaria, inventarios y logística para que el pan llegue fresco a vitrina y pedidos en línea. Mantiene el ritmo del horno sin perder calidad ni calidez.',
-      photoUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=900&q=80&auto=format&fit=crop',
     },
   ];
 

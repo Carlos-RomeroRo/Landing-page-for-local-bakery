@@ -1,0 +1,82 @@
+@if (isOpen()) {
+  @if (product(); as item) {
+    <div
+      class="product-modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="product-modal-title"
+      (click)="close()">
+      <div class="product-modal-panel" (click)="$event.stopPropagation()">
+        <button type="button" class="product-modal-close" aria-label="Cerrar" (click)="close()">×</button>
+
+        <div class="product-modal-grid">
+          <div class="product-modal-media">
+            @if (item.foto) {
+              <img
+                class="product-modal-photo"
+                [src]="item.foto"
+                [alt]="item.nombre"
+                width="480"
+                height="480"
+                loading="lazy"
+                decoding="async" />
+            } @else {
+              <div class="product-modal-photo product-modal-photo--placeholder" aria-hidden="true">
+                <span>{{ item.nombre.charAt(0) }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="product-modal-body">
+            <h2 id="product-modal-title" class="product-modal-title">{{ item.nombre }}</h2>
+            <p class="product-modal-price">{{ precioFormateado() }}</p>
+            <p class="product-modal-description">{{ item.descripcion }}</p>
+
+            <div class="product-modal-field">
+              <label for="product-cantidad" class="product-modal-label">
+                Cantidad <span class="product-modal-required" aria-hidden="true">*</span>
+              </label>
+              <input
+                id="product-cantidad"
+                type="number"
+                class="product-modal-input"
+                min="1"
+                step="1"
+                required
+                inputmode="numeric"
+                [value]="cantidad()"
+                [disabled]="agregando()"
+                (input)="updateCantidad($any($event.target).value)" />
+              @if (cantidadError()) {
+                <p class="product-modal-error" role="alert">{{ cantidadError() }}</p>
+              }
+            </div>
+
+            @if (agregadoOk()) {
+              <p class="product-modal-success" role="status">¡Producto agregado al carrito!</p>
+            } @else if (agregarError()) {
+              <p class="product-modal-error" role="alert">{{ agregarError() }}</p>
+            }
+
+            <div class="product-modal-actions">
+              <button
+                type="button"
+                class="product-modal-btn product-modal-btn--secondary"
+                [disabled]="agregando()"
+                (click)="close()">
+                {{ agregadoOk() ? 'Cerrar' : 'Cancelar' }}
+              </button>
+              <button
+                type="button"
+                class="product-modal-btn product-modal-btn--primary"
+                [disabled]="agregando() || agregadoOk()"
+                (click)="agregar()">
+                {{ agregando() ? 'Agregando…' : agregadoOk() ? 'Agregado' : 'Agregar' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}

@@ -1,0 +1,224 @@
+@if (isOpen()) {
+  <div class="carrito-backdrop" role="dialog" aria-modal="true" aria-labelledby="carrito-panel-title" (click)="close()">
+    <div class="carrito-panel" (click)="$event.stopPropagation()">
+      <header class="carrito-panel__header">
+        <div class="carrito-panel__header-text">
+          <h2 id="carrito-panel-title" class="carrito-panel__title">Tu pedido</h2>
+          <p class="carrito-panel__subtitle">{{ totalUnidades() }} unidades en el carrito</p>
+        </div>
+        <button type="button" class="carrito-panel__close" aria-label="Cerrar carrito" (click)="close()">×</button>
+      </header>
+
+      @if (cargando()) {
+        <p class="carrito-panel__message">Actualizando carrito…</p>
+      } @else if (!(resumen()?.productos?.length)) {
+        <p class="carrito-panel__message">Tu carrito está vacío. Agrega productos desde el catálogo.</p>
+      } @else {
+        <ul class="carrito-panel__list" role="list">
+          @for (item of resumen()!.productos; track item.producto_id) {
+            <li class="carrito-item">
+              <div class="carrito-item__info">
+                <p class="carrito-item__name">{{ item.nombre }}</p>
+                @if (editandoId() === item.producto_id) {
+                  <div class="carrito-item__edit">
+                    <label class="carrito-item__edit-label" [for]="'qty-' + item.producto_id">Uds.</label>
+                    <input
+                      [id]="'qty-' + item.producto_id"
+                      type="number"
+                      class="carrito-item__qty-input"
+                      min="1"
+                      step="1"
+                      inputmode="numeric"
+                      [value]="cantidadEdicion()"
+                      [disabled]="actualizandoId() === item.producto_id"
+                      (input)="updateCantidadEdicion($any($event.target).value)"
+                      (keydown.enter)="guardarCantidad(item)" />
+                    <button
+                      type="button"
+                      class="carrito-item__icon-btn carrito-item__icon-btn--save"
+                      aria-label="Guardar cantidad"
+                      [disabled]="actualizandoId() === item.producto_id"
+                      (click)="guardarCantidad(item)">
+                      <svg class="carrito-item__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      class="carrito-item__icon-btn"
+                      aria-label="Cancelar edición"
+                      [disabled]="actualizandoId() === item.producto_id"
+                      (click)="cancelarEdicion()">
+                      <svg class="carrito-item__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                } @else {
+                  <p class="carrito-item__meta">
+                    {{ formatPrecio(item.precio_unitario) }} × {{ item.cantidad }} uds.
+                  </p>
+                }
+              </div>
+              <div class="carrito-item__actions">
+                <p class="carrito-item__total">{{ formatPrecio(item.precio_total) }}</p>
+                <div class="carrito-item__icon-group">
+                  <button
+                    type="button"
+                    class="carrito-item__icon-btn"
+                    aria-label="Modificar unidades"
+                    [disabled]="itemOcupado(item.producto_id) || editandoId() !== null"
+                    (click)="iniciarEdicion(item)">
+                    <svg class="carrito-item__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5m-1.414-9.414a2 2 0 1 1 2.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    class="carrito-item__icon-btn carrito-item__icon-btn--danger"
+                    aria-label="Eliminar producto"
+                    [disabled]="itemOcupado(item.producto_id) || editandoId() !== null"
+                    (click)="eliminar(item.producto_id)">
+                    <svg class="carrito-item__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0 1 16.138 21H7.862a2 2 0 0 1-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+
+      @if (error()) {
+        <p class="carrito-panel__error" role="alert">{{ error() }}</p>
+      }
+
+      <footer class="carrito-panel__footer">
+        <div class="carrito-panel__total-row">
+          <span>Total a pagar</span>
+          <strong>{{ formatPrecio(totalCompra()) }}</strong>
+        </div>
+        <div class="carrito-panel__actions">
+          <button type="button" class="carrito-panel__btn carrito-panel__btn--secondary" (click)="close()">
+            Seguir comprando
+          </button>
+          <button
+            type="button"
+            class="carrito-panel__btn carrito-panel__btn--primary"
+            [disabled]="!puedeFinalizar()"
+            (click)="abrirCheckout()">
+            Finalizar compra
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+}
+
+@if (checkoutOpen()) {
+  <div
+    class="checkout-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="checkout-modal-title"
+    (click)="cerrarCheckout()">
+    <div class="checkout-modal" (click)="$event.stopPropagation()">
+      <button type="button" class="checkout-modal__close" aria-label="Cerrar" (click)="cerrarCheckout()">×</button>
+
+      @if (checkoutEnviado()) {
+        <h2 id="checkout-modal-title" class="checkout-modal__title">¡Pedido registrado!</h2>
+        <p class="checkout-modal__text">
+          Gracias, <strong>{{ nombreCliente().trim() }}</strong>. Recibimos tu pedido por
+          <strong>{{ formatPrecio(totalCompra()) }}</strong>.
+        </p>
+        <p class="checkout-modal__text">
+          {{ envioDomicilio() ? 'Te contactaremos para coordinar el envío a domicilio.' : 'Puedes recoger tu pedido en la panadería.' }}
+        </p>
+        <button type="button" class="checkout-modal__submit" (click)="close()">Entendido</button>
+      } @else {
+        <h2 id="checkout-modal-title" class="checkout-modal__title">Finalizar compra</h2>
+        <p class="checkout-modal__intro">Completa tus datos para confirmar el pedido.</p>
+
+        <div class="checkout-field">
+          <label for="checkout-nombre" class="checkout-label">
+            Nombre <span class="checkout-required" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="checkout-nombre"
+            type="text"
+            class="checkout-input"
+            placeholder="Tu nombre completo"
+            [value]="nombreCliente()"
+            (input)="updateNombre($any($event.target).value)" />
+        </div>
+
+        <fieldset class="checkout-field">
+          <legend class="checkout-label">
+            ¿Deseas envío a domicilio? <span class="checkout-required" aria-hidden="true">*</span>
+          </legend>
+          <div class="checkout-options">
+            <label class="checkout-option">
+              <input
+                type="radio"
+                name="envio-domicilio"
+                [checked]="envioDomicilio() === true"
+                (change)="seleccionarDomicilio(true)" />
+              <span>Sí, enviar a domicilio</span>
+            </label>
+            <label class="checkout-option">
+              <input
+                type="radio"
+                name="envio-domicilio"
+                [checked]="envioDomicilio() === false"
+                (change)="seleccionarDomicilio(false)" />
+              <span>No, recoger en tienda</span>
+            </label>
+          </div>
+        </fieldset>
+
+        @if (checkoutError()) {
+          <p class="checkout-error" role="alert">{{ checkoutError() }}</p>
+        }
+
+        <div class="checkout-actions">
+          <button type="button" class="checkout-btn checkout-btn--secondary" (click)="cerrarCheckout()">
+            Cancelar
+          </button>
+          <button type="button" class="checkout-btn checkout-btn--primary" (click)="confirmarCheckout()">
+            Confirmar pedido
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+<button
+  type="button"
+  class="carrito-fab"
+  aria-label="Ver carrito de compras"
+  [attr.aria-expanded]="isOpen()"
+  (click)="toggle()">
+  <svg class="carrito-fab__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M4 7h16l-1.5 9h-13L4 7Zm4 0V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+  </svg>
+  @if (totalUnidades() > 0) {
+    <span class="carrito-fab__badge">{{ totalUnidades() }}</span>
+  }
+</button>
