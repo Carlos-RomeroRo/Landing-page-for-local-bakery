@@ -33,7 +33,7 @@ const WAVE_BOTTOM_WAVY = 'M0,615 H1440 V900 C1080,900 360,900 0,900 H0,615 Z';
 const INTRO_DURATION = 2;
 
 /** Rutas del navbar con página propia (sin contar fragmentos #home / #contacto). */
-const NAV_ROUTE_KEYS = new Set(['', 'nosotros', 'productos']);
+const NAV_ROUTE_KEYS = new Set(['', 'nosotros', 'productos', 'contacto']);
 
 @Component({
   selector: 'app-page-intro-splash',

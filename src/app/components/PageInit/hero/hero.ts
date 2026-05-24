@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ModalService, ModalType } from '../../../services/modal.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RouterLink],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
-export class Hero {
-  constructor(private modalService: ModalService) {}
-
-  openModal(type: ModalType) {
-    this.modalService.openModal(type);
-  }
-}
-
+export class Hero {}

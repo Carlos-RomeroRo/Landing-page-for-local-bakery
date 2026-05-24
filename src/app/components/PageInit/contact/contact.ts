@@ -20,6 +20,7 @@ import {
   MapMarker,
 } from '@angular/google-maps';
 
+import { FadeDirective } from '../../../animation';
 import { ensurePlacesLibrary } from '../../../core/google-maps/google-maps-loader';
 import { GoogleMapsReadyService } from '../../../core/google-maps/google-maps-ready.service';
 import { GOOGLE_MAPS_API_KEY } from '../../../../environments/maps.config';
@@ -32,12 +33,27 @@ const SEARCH_PREFIX = 'Santa Marta, Magdalena, ';
 const STATIC_MAP_EMBED =
   'https://maps.google.com/maps?q=11.2119477,-74.18602&hl=es&z=16&output=embed';
 
+const SOCIAL_LINKS = {
+  instagram: {
+    href: 'https://www.instagram.com/zapatoca_panaderia/',
+    label: 'Instagram',
+    handle: '@zapatoca_panaderia',
+    description: 'Fotos del horno, novedades y el día a día en la panadería.',
+  },
+  facebook: {
+    href: 'https://www.facebook.com/zapatoca.santacruz?locale=es_LA',
+    label: 'Facebook',
+    handle: 'Zapatoca Santacruz',
+    description: 'Comunidad, horarios y noticias de Panadería Zapatoca.',
+  },
+} as const;
+
 type OriginSource = 'gps' | 'search' | 'manual';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [GoogleMap, MapMarker, MapDirectionsRenderer],
+  imports: [FadeDirective, GoogleMap, MapMarker, MapDirectionsRenderer],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
@@ -106,7 +122,13 @@ export class Contact implements OnDestroy {
   readonly routeError = signal<string | null>(null);
   readonly placesSearchReady = signal(false);
 
+  readonly socialLinks = SOCIAL_LINKS;
+
   readonly openInGoogleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${BAKERY.lat},${BAKERY.lng}&travelmode=driving`;
+
+  socialFadeDelay(index: number): number {
+    return 0.12 + index * 0.1;
+  }
 
   get openInGoogleMapsWithOriginUrl(): string {
     const origin = this.userOrigin();
