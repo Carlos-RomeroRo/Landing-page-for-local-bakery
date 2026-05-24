@@ -1,0 +1,76 @@
+<div class="delivery-picker">
+  @if (!mapsKeyConfigured) {
+    <p class="delivery-picker__message">
+      Mapa no disponible. Configura <code>NG_APP_GOOGLE_MAPS_API_KEY</code> en el proyecto.
+    </p>
+  } @else {
+    <p class="delivery-picker__hint">
+      Indica dónde entregar: GPS, búsqueda de dirección o pin en el mapa (puede ser otro lugar, no solo tu ubicación).
+    </p>
+
+    <div #autocompleteHost class="delivery-picker__search" role="search"></div>
+
+    <button
+      type="button"
+      class="delivery-picker__gps-btn"
+      [disabled]="awaitingLocation() || routeLoading() || mapBootstrapping()"
+      (click)="usarGps()">
+      @if (awaitingLocation()) {
+        Obteniendo GPS…
+      } @else {
+        Usar mi ubicación GPS
+      }
+    </button>
+
+    @if (mapBootstrapping() || routeLoading()) {
+      <p class="delivery-picker__status">Calculando ruta y distancia de entrega…</p>
+    }
+
+    @if (mapsReady()) {
+      <div class="delivery-picker__map">
+        <google-map
+          height="100%"
+          width="100%"
+          [center]="mapCenter"
+          [zoom]="mapZoom"
+          [options]="mapOptions"
+          (mapInitialized)="onMapInitialized($event)"
+          (mapClick)="onMapClick($event)">
+          <map-marker [position]="bakery" title="Panadería Zapatoca" />
+          @if (deliveryPoint(); as point) {
+            <map-marker
+              [position]="point"
+              [options]="deliveryMarkerOptions"
+              (mapDragend)="onMarkerDragEnd($event)" />
+          }
+          @if (directionsResult(); as directions) {
+            <map-directions-renderer
+              [directions]="directions"
+              [options]="directionsRendererOptions" />
+          }
+        </google-map>
+      </div>
+    }
+
+    @if (addressLabel(); as label) {
+      <p class="delivery-picker__address" role="status">{{ label }}</p>
+    }
+
+    @if (routeInfo(); as info) {
+      <p class="delivery-picker__route">
+        Distancia: <strong>{{ info.distance }}</strong> · {{ info.duration }} en carro
+        @if (valorDomicilio(); as domicilio) {
+          · Domicilio: <strong>{{ formatPrecio(domicilio) }}</strong>
+        }
+      </p>
+    }
+
+    @if (mapsLoadError(); as loadError) {
+      <p class="delivery-picker__error">{{ loadError }}</p>
+    }
+
+    @if (routeError(); as error) {
+      <p class="delivery-picker__error" role="alert">{{ error }}</p>
+    }
+  }
+</div>

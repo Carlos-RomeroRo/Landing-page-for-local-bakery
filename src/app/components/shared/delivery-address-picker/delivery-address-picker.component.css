@@ -1,0 +1,73 @@
+.delivery-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.delivery-picker__hint,
+.delivery-picker__message,
+.delivery-picker__status {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #64748b;
+}
+
+.delivery-picker__search {
+  width: 100%;
+  overflow: visible;
+  position: relative;
+  z-index: 5;
+}
+
+.delivery-picker__search gmp-place-autocomplete,
+.delivery-picker__autocomplete {
+  display: block;
+  width: 100%;
+  min-height: 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1 !important;
+  background: #fff !important;
+}
+
+.delivery-picker__gps-btn {
+  border: 1px solid #f59e0b;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: #fffbeb;
+  color: #92400e;
+  cursor: pointer;
+}
+
+.delivery-picker__gps-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.delivery-picker__map {
+  height: 11rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.delivery-picker__map ::ng-deep .map-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.delivery-picker__address,
+.delivery-picker__route {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #334155;
+}
+
+.delivery-picker__error {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #b91c1c;
+}

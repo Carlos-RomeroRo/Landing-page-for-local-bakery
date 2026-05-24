@@ -42,3 +42,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Google Maps API key (local)
+.env
+src/environments/maps.config.local.ts

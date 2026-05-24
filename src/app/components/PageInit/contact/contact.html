@@ -1,0 +1,439 @@
+<!-- Sección 1: Hero (pantalla completa, como Home) -->
+
+<section
+
+  id="contacto"
+
+  class="relative flex min-h-screen w-full max-w-[100vw] items-center justify-center overflow-hidden pt-20">
+
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+
+    <img
+
+      src="https://res.cloudinary.com/dadlhhv4t/image/upload/v1779640991/Contact_zictew.png"
+
+      alt=""
+
+      width="1920"
+
+      height="1080"
+
+      class="absolute inset-0 h-full min-h-full w-full min-w-full object-cover object-center"
+
+      loading="eager"
+
+      decoding="async" />
+
+    <div class="absolute inset-0 bg-stone-950/55"></div>
+
+    <div class="absolute inset-0 bg-gradient-to-b from-stone-950/75 via-stone-950/55 to-stone-950/80"></div>
+
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_35%,transparent_0%,rgba(28,25,23,0.55)_70%)]"></div>
+
+  </div>
+
+
+
+  <div class="relative z-10 mx-auto w-full max-w-5xl px-6 py-16 text-center sm:px-8 sm:py-20 lg:py-24">
+
+    <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-amber-200/90">
+
+      Contáctanos
+
+    </p>
+
+    <h1
+
+      class="text-4xl font-bold leading-[1.1] tracking-tight text-amber-50 sm:text-5xl lg:text-6xl xl:text-7xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_4px_48px_rgba(0,0,0,0.35)]">
+
+      ¿Sabes dónde
+
+      <span class="block text-yellow-400">encontrarnos?</span>
+
+    </h1>
+
+    <p class="mt-4 text-sm text-amber-100/90 sm:text-base">
+
+      Panadería Zapatoca · Cra. 19 #3-100, Santa Marta, Magdalena
+
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- Sección 2: Mapa (ancho completo, sección aparte) -->
+
+<section
+
+  id="mapa-contacto"
+
+  class="w-full max-w-[100vw] border-t border-amber-900/15 bg-gradient-to-b from-amber-50 to-orange-50 px-0 py-10 dark:border-stone-700 dark:from-stone-950 dark:to-stone-900 sm:py-14"
+
+  aria-labelledby="mapa-contacto-titulo">
+
+  <div class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+
+    <div class="mb-6 text-center">
+
+      <h2
+
+        id="mapa-contacto-titulo"
+
+        class="text-2xl font-bold text-amber-950 dark:text-amber-50 sm:text-3xl">
+
+        Visítanos en Santa Marta
+
+      </h2>
+
+      <p class="mt-2 text-sm text-amber-900/80 dark:text-amber-100/80">
+
+        GPS para tu ruta; si no coincide, corrige con búsqueda o moviendo el pin en el mapa
+
+      </p>
+
+    </div>
+
+
+
+    @if (!mapsKeyConfigured) {
+
+      <div
+
+        class="contact-map-panel flex items-center justify-center rounded-2xl border border-amber-300 bg-amber-100/90 px-6 text-center text-amber-950 dark:border-amber-700 dark:bg-amber-950/50 dark:text-amber-50">
+
+        <div>
+
+          <p class="font-medium">Mapa no configurado</p>
+
+          <p class="mt-2 text-sm opacity-90">
+
+            Define <code class="rounded bg-amber-200/60 px-1 dark:bg-stone-800">NG_APP_GOOGLE_MAPS_API_KEY</code>
+
+            en <code class="rounded bg-amber-200/60 px-1 dark:bg-stone-800">.env</code> y reinicia
+
+            <code class="rounded bg-amber-200/60 px-1 dark:bg-stone-800">npm start</code>.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    } @else {
+
+      @if (showOriginCorrection) {
+        <div
+          class="contact-origin-panel mb-4 rounded-xl border border-amber-200 bg-white/90 px-4 py-4 shadow-sm dark:border-stone-600 dark:bg-stone-900/80 sm:px-5"
+          role="region"
+          aria-label="Corregir punto de partida">
+          <p class="text-sm font-semibold text-amber-950 dark:text-amber-50">Tu punto de partida</p>
+          <p class="mt-1 text-xs text-amber-900/75 dark:text-amber-100/70">
+            1) GPS al calcular la ruta · 2) busca una dirección · 3) clic en el mapa o arrastra el pin azul
+          </p>
+          <p class="mt-3 text-xs font-medium text-amber-900/80 dark:text-amber-100/75">
+            Buscar dirección en Santa Marta, Magdalena
+          </p>
+          <div #autocompleteHost class="contact-autocomplete-host mt-1" role="search"></div>
+          @if (originSourceLabel(); as originLabel) {
+            <p class="mt-2 text-xs text-amber-900/85 dark:text-amber-100/75" role="status">
+              {{ originLabel }}
+            </p>
+          }
+        </div>
+      }
+
+      <div class="contact-map-panel relative w-full overflow-hidden rounded-2xl border border-amber-900/15 shadow-xl ring-1 ring-amber-900/10 dark:border-stone-600 dark:ring-stone-600">
+
+        @if (isBrowser && showInteractiveMap() && mapsReady()) {
+
+          <google-map
+
+            class="contact-map-interactive absolute inset-0 z-0"
+
+            height="100%"
+
+            width="100%"
+
+            [center]="mapCenter"
+
+            [zoom]="mapZoom"
+
+            [options]="mapOptions"
+
+            (mapInitialized)="onMapInitialized($event)"
+
+            (mapClick)="onMapClick($event)"
+
+            (authFailure)="onMapAuthFailure()">
+
+            <map-marker [position]="bakery" title="Panadería Zapatoca" />
+
+            @if (userOrigin(); as origin) {
+
+              <map-marker
+
+                [position]="origin"
+
+                [options]="userMarkerOptions"
+
+                (mapDragend)="onUserMarkerDragEnd($event)" />
+
+            }
+
+            @if (directionsResult(); as directions) {
+
+              <map-directions-renderer
+
+                [directions]="directions"
+
+                [options]="directionsRendererOptions" />
+
+            }
+
+          </google-map>
+
+        }
+
+
+
+        <iframe
+
+          [src]="staticMapEmbedUrl"
+
+          class="h-full w-full border-0"
+
+          [class.hidden]="showInteractiveMap() && mapsReady()"
+
+          allowfullscreen
+
+          loading="lazy"
+
+          referrerpolicy="no-referrer-when-downgrade"
+
+          title="Ubicación Panadería Zapatoca en Santa Marta"></iframe>
+
+
+
+        @if (isBrowser && showInteractiveMap() && (awaitingLocation() || mapBootstrapping() || routeLoading())) {
+
+          <div
+
+            class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-amber-50/90 backdrop-blur-sm dark:bg-stone-950/90">
+
+            <span
+
+              class="h-8 w-8 animate-spin rounded-full border-2 border-amber-900 border-t-transparent"
+
+              aria-hidden="true"></span>
+
+            <p class="text-sm font-medium text-amber-950 dark:text-amber-50">
+
+              @if (awaitingLocation()) {
+
+                Esperando permiso de ubicación…
+
+              } @else if (routeLoading()) {
+
+                Calculando ruta y distancia…
+
+              } @else {
+
+                Preparando mapa para tu ruta…
+
+              }
+
+            </p>
+
+          </div>
+
+        }
+
+      </div>
+
+
+
+      @if (routeInfo(); as info) {
+
+        <div
+
+          class="mt-4 rounded-xl border border-amber-200 bg-amber-100/80 px-5 py-4 text-center shadow-sm dark:border-amber-800 dark:bg-amber-950/50"
+
+          role="status"
+
+          aria-live="polite">
+
+          <p class="text-xs font-semibold uppercase tracking-wide text-amber-800 dark:text-amber-200">
+
+            Tu ruta a la panadería
+
+          </p>
+
+          <p class="mt-1 text-2xl font-bold text-amber-950 dark:text-amber-50">
+
+            {{ info.distance }}
+
+          </p>
+
+          <p class="text-sm font-medium text-amber-900/90 dark:text-amber-100/85">
+
+            {{ info.duration }} en carro · ruta en el mapa
+
+          </p>
+
+        </div>
+
+      }
+
+
+
+      @if (mapsLoadError(); as loadError) {
+
+        <p class="mt-3 text-center text-sm text-amber-900/90 dark:text-amber-100/80" role="status">
+
+          {{ loadError }} (se muestra el mapa estático arriba).
+
+        </p>
+
+      }
+
+
+
+      @if (mapsAuthError()) {
+
+        <p class="mt-3 text-center text-sm text-red-700 dark:text-red-300" role="alert">
+
+          Google rechazó la API key. Revisa dominio, facturación y APIs habilitadas (Maps, Directions y Places).
+
+        </p>
+
+      }
+
+
+
+      <div class="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+
+        <button
+
+          type="button"
+
+          class="inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-amber-900 px-6 py-2.5 text-sm font-semibold text-amber-50 shadow-sm transition hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 disabled:cursor-wait disabled:opacity-80 dark:focus:ring-offset-stone-900 sm:w-auto"
+
+          [disabled]="routeLoading() || mapBootstrapping() || awaitingLocation()"
+
+          (click)="requestRoute()">
+
+          @if (awaitingLocation()) {
+
+            Esperando ubicación…
+
+          } @else if (routeLoading() || mapBootstrapping()) {
+
+            Calculando ruta…
+
+          } @else if (directionsResult()) {
+
+            Actualizar ruta (GPS)
+
+          } @else {
+
+            Calcular ruta y distancia
+
+          }
+
+        </button>
+
+        <a
+
+          [href]="openInGoogleMapsWithOriginUrl"
+
+          target="_blank"
+
+          rel="noopener noreferrer"
+
+          class="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-amber-900/25 bg-white px-6 py-2.5 text-sm font-semibold text-amber-950 transition hover:bg-amber-50 dark:border-stone-600 dark:bg-stone-800 dark:text-amber-50 dark:hover:bg-stone-700 sm:w-auto">
+
+          Abrir en Google Maps
+
+        </a>
+
+      </div>
+
+
+
+      @if (!showInteractiveMap()) {
+
+        <p class="mt-3 text-center text-xs text-amber-900/70 dark:text-amber-100/60">
+
+          Al pulsar «Calcular ruta», el navegador puede pedir tu ubicación (GPS). Si falla o no es exacta,
+
+          podrás buscar una dirección o colocar el pin en el mapa.
+
+        </p>
+
+      }
+
+
+
+      @if (locationAccuracyLabel(); as accuracyText) {
+
+        <p class="mt-2 text-center text-sm text-amber-900/85 dark:text-amber-100/75" role="status">
+
+          {{ accuracyText }}
+
+        </p>
+
+      }
+
+
+
+      @if (locationDenied()) {
+
+        <div class="mt-4 text-center" role="status">
+
+          <p class="text-sm text-amber-900/90 dark:text-amber-100/80">
+
+            No pudimos usar el GPS. Busca tu dirección arriba, haz clic en el mapa o arrastra el pin azul.
+
+          </p>
+
+          @if (!showInteractiveMap()) {
+
+            <button
+
+              type="button"
+
+              class="mt-3 inline-flex min-h-10 items-center justify-center rounded-lg border border-amber-900/30 bg-white px-5 py-2 text-sm font-semibold text-amber-950 hover:bg-amber-50 dark:border-stone-600 dark:bg-stone-800 dark:text-amber-50"
+
+              (click)="openMapForManualCorrection()">
+
+              Corregir ubicación en el mapa
+
+            </button>
+
+          }
+
+        </div>
+
+      }
+
+
+
+      @if (routeError(); as error) {
+
+        <p class="mt-4 text-center text-sm text-red-800 dark:text-red-300" role="alert">
+
+          {{ error }}
+
+        </p>
+
+      }
+
+    }
+
+  </div>
+
+</section>
+

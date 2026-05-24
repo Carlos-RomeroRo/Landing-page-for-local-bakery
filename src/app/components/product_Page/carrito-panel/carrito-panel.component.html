@@ -137,15 +137,30 @@
       <button type="button" class="checkout-modal__close" aria-label="Cerrar" (click)="cerrarCheckout()">×</button>
 
       @if (checkoutEnviado()) {
-        <h2 id="checkout-modal-title" class="checkout-modal__title">¡Pedido registrado!</h2>
+        <h2 id="checkout-modal-title" class="checkout-modal__title">¡Listo para enviar!</h2>
         <p class="checkout-modal__text">
-          Gracias, <strong>{{ nombreCliente().trim() }}</strong>. Recibimos tu pedido por
-          <strong>{{ formatPrecio(totalCompra()) }}</strong>.
+          Hola, <strong>{{ nombreCliente().trim() }}</strong>. Se abrió WhatsApp con tu pedido de
+          <strong>{{ formatPrecio(totalConDomicilio()) }}</strong>.
+          Solo pulsa <strong>Enviar</strong> en la conversación.
+          @if (envioDomicilio()) {
+            El mensaje incluye un enlace con la ruta del domicilio a la panadería.
+          }
         </p>
-        <p class="checkout-modal__text">
-          {{ envioDomicilio() ? 'Te contactaremos para coordinar el envío a domicilio.' : 'Puedes recoger tu pedido en la panadería.' }}
-        </p>
-        <button type="button" class="checkout-modal__submit" (click)="close()">Entendido</button>
+        @if (!envioDomicilio()) {
+          <p class="checkout-modal__text">Recogerás tu pedido en la panadería (domicilio $0).</p>
+        }
+        <div class="checkout-actions" style="grid-template-columns: 1fr">
+          <a
+            class="checkout-btn checkout-btn--whatsapp"
+            [href]="whatsappUrl()"
+            target="_blank"
+            rel="noopener noreferrer">
+            Abrir WhatsApp de nuevo
+          </a>
+          <button type="button" class="checkout-btn checkout-btn--secondary" (click)="close()">
+            Cerrar
+          </button>
+        </div>
       } @else {
         <h2 id="checkout-modal-title" class="checkout-modal__title">Finalizar compra</h2>
         <p class="checkout-modal__intro">Completa tus datos para confirmar el pedido.</p>
@@ -187,6 +202,44 @@
           </div>
         </fieldset>
 
+        @if (envioDomicilio() === true) {
+          <div class="checkout-field checkout-field--map">
+            <p class="checkout-label">
+              Dirección de entrega <span class="checkout-required" aria-hidden="true">*</span>
+            </p>
+            <app-delivery-address-picker (selectionChange)="onDireccionEntrega($event)" />
+            <p class="checkout-hint">Domicilio: $5.000 hasta 1 km + $2.000 por cada km adicional.</p>
+          </div>
+        }
+
+        <div class="checkout-resumen">
+          <div class="checkout-resumen__row">
+            <span>Subtotal productos</span>
+            <span>{{ formatPrecio(totalCompra()) }}</span>
+          </div>
+          @if (envioDomicilio() === true) {
+            <div class="checkout-resumen__row">
+              <span>Domicilio (estimado)</span>
+              <span>
+                @if (valorDomicilioEstimado(); as domicilio) {
+                  {{ formatPrecio(domicilio) }}
+                } @else {
+                  —
+                }
+              </span>
+            </div>
+          } @else if (envioDomicilio() === false) {
+            <div class="checkout-resumen__row">
+              <span>Domicilio</span>
+              <span>$0 — recogida en tienda</span>
+            </div>
+          }
+          <div class="checkout-resumen__row checkout-resumen__row--total">
+            <span>Total estimado</span>
+            <strong>{{ formatPrecio(totalConDomicilio()) }}</strong>
+          </div>
+        </div>
+
         @if (checkoutError()) {
           <p class="checkout-error" role="alert">{{ checkoutError() }}</p>
         }
@@ -196,7 +249,7 @@
             Cancelar
           </button>
           <button type="button" class="checkout-btn checkout-btn--primary" (click)="confirmarCheckout()">
-            Confirmar pedido
+            Enviar pedido por WhatsApp
           </button>
         </div>
       }

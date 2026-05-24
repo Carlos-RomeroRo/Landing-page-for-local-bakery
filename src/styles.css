@@ -106,3 +106,8 @@ html.dark .app-surface-card {
     opacity: 1;
   }
 }
+
+/* Sugerencias de gmp-place-autocomplete (sin z-index global: no tapar navbar z-20) */
+gmp-place-autocomplete {
+  color-scheme: light dark;
+}

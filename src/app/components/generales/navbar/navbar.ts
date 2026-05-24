@@ -15,7 +15,7 @@ import { DarkModeToggleComponent } from '../dark-mode-toggle/dark-mode-toggle.co
 import { ModalService, ModalType } from '../../../services/modal.service';
 
 /** Rutas con página propia (no son fragmentos del home). */
-type DedicatedNav = 'productos' | 'nosotros';
+type DedicatedNav = 'productos' | 'nosotros' | 'contacto';
 
 @Component({
   selector: 'app-navbar',
@@ -84,6 +84,9 @@ export class Navbar implements OnInit, OnDestroy {
     }
     if (first === 'nosotros') {
       return 'nosotros';
+    }
+    if (first === 'contacto') {
+      return 'contacto';
     }
     return null;
   }
